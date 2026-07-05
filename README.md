@@ -42,6 +42,25 @@ workspace/
 Plain Markdown is the only source of truth. No database, nothing hidden — you can
 read, edit, and version-control the whole thing by hand.
 
+## Install
+
+The skills are packaged to the [Agent Skills](https://github.com/vercel-labs/skills)
+spec — one `SKILL.md` per skill — so they install into **any** supported agent
+(Claude Code, Cursor, Cline, OpenCode, and 70+ others) with one command:
+
+```bash
+# add all four skills to the current project (or -g for your user directory)
+npx skills add rn7s2/life-harness
+
+# or pick specific skills / target specific agents
+npx skills add rn7s2/life-harness --skill rl-init --agent '*'
+```
+
+Each skill lives under [`skills/`](skills/) as a self-contained directory. Once
+installed, run `/rl-init` first, then follow the loop below. The skills are
+portable: they carry their own instructions and depend only on the shared Markdown
+workspace (and, for reviews, a connected `pi0` MCP server).
+
 ## Skills
 
 All four skills operate on the same workspace, so they compose into one loop. Each

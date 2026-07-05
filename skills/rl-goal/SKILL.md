@@ -1,0 +1,99 @@
+---
+name: rl-goal
+description: >-
+  Discuss a goal with the user and write it down in the life-harness workspace,
+  with clear checkable success criteria, consistent with their philosophy and
+  existing goals. Use when the user runs /rl-goal, states a goal they want to set
+  (e.g. "spend two focused hours a day building my side project"), names an
+  existing goal to refine, or asks what to pursue next. Reads philosophy/ and
+  goals/; writes to goals/.
+metadata:
+  loop: life-harness
+  step: 2-goal
+---
+
+# rl-goal — set a goal with criteria you can actually check
+
+A goal in life-harness is only useful if it (a) follows from the user's
+**philosophy**, (b) is consistent with their **other goals**, and (c) carries
+**clear, checkable criteria** for what "accomplished" means. This skill turns an
+intention into such a goal file, or refines an existing one.
+
+## Input
+
+Whatever the user typed after `/rl-goal` is a **seed, not a strict argument**:
+- A goal to set → shape it into a checkable goal.
+- The name of an existing goal → refine it.
+- **Nothing** → review their open goals and ask what to pursue next.
+
+Take the seed as a starting point and ask for whatever else you need.
+
+## Steps
+
+1. **Locate the workspace.** Discovery order: the `LIFE_HARNESS_WORKSPACE`
+   environment variable → the path in `~/.life-harness/workspace` → an
+   ancestor/child directory containing `philosophy/`, `goals/`, `reviews/`. If
+   none is found, tell the user to run `/rl-init` first, and stop.
+
+2. **Load the lens and the context.** Read everything in `philosophy/` and the
+   existing files in `goals/` (note which are `active`). You cannot check a goal
+   for consistency without them.
+
+3. **Understand the intent.** If the seed is a goal, clarify what success would
+   really look like and why it matters now. If the seed is empty, summarise the
+   active goals and ask which to advance, refine, or retire.
+
+4. **Check it against the philosophy and other goals — honestly.**
+   - Does this goal honour the stated principles, or quietly cut against one?
+     If it conflicts, say so and work it out with the user before writing.
+   - Does it collide with or crowd out an existing active goal? Name the
+     trade-off. Two goals that both demand the user's best hours are in tension.
+   - If the goal is off-lens, don't launder it into an acceptable-sounding
+     version — tell the user plainly.
+
+5. **Forge checkable success criteria.** This is the core of the skill. Drive
+   toward criteria that a later review could mark met / partial / not met from
+   evidence, not vibes:
+   - Prefer observable behaviour and outcomes over feelings.
+   - Make the quantity, cadence, and time window explicit ("two focused hours a
+     day, on ≥5 days each week", not "more focus").
+   - Define what counts and what doesn't (what is a "focused hour"? does
+     meeting-heavy time count?).
+   - Note how progress will be observed — e.g. from pi0 activity data in
+     `/rl-pi-review`, or another source the user names.
+   - If a goal can't be made checkable, that's a signal: reshape it until it can,
+     or record honestly that it's a direction rather than a goal.
+
+6. **Write it down.** One file per goal, kebab-case slug (`goals/side-project.md`).
+   When refining, edit the existing file and append to its history with a date;
+   don't create a duplicate. Suggested shape:
+
+   ```markdown
+   # <Goal title>
+
+   - status: active            # active | accomplished | abandoned
+   - created: YYYY-MM-DD        # use today's real date
+   - target: <date or cadence, if any>
+
+   ## Why this goal
+   How it follows from the philosophy and fits the other goals.
+
+   ## Success criteria
+   - [ ] Concrete, checkable criterion (quantity + cadence + window)
+   - [ ] What counts / what doesn't
+   - [ ] How progress will be observed
+
+   ## Notes / history
+   YYYY-MM-DD — created / refined: <what changed and why>
+   ```
+
+   Use the current real date; do not guess it.
+
+7. **Confirm.** Show the file, restate the criteria in one line, and point the
+   user to `/rl-pi-review` once they've acted for a while.
+
+## Stance
+
+Your job is not to make the user feel productive for having a goal. It is to
+make the goal honest, aligned, and checkable — so a later review can tell the
+truth about whether it was reached.

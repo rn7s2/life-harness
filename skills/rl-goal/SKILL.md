@@ -6,7 +6,7 @@ description: >-
   existing goals. Use when the user runs /rl-goal, states a goal they want to set
   (e.g. "spend two focused hours a day building my side project"), names an
   existing goal to refine, or asks what to pursue next. Reads philosophy/ and
-  goals/; writes to goals/.
+  goals/; writes to goals/open/ and goals/closed/.
 metadata:
   loop: life-harness
   step: 2-goal
@@ -30,23 +30,23 @@ Take the seed as a starting point and ask for whatever else you need.
 
 ## Steps
 
-1. **Locate the workspace.** Discovery order: the `LIFE_HARNESS_WORKSPACE`
-   environment variable → the path in `~/.life-harness/workspace` → an
-   ancestor/child directory containing `philosophy/`, `goals/`, `reviews/`. If
-   none is found, tell the user to run `/rl-init` first, and stop.
+1. **Locate the workspace.** The workspace is the current working directory (the
+   folder life-harness is installed into); if invoked from a subdirectory, walk up
+   to the nearest ancestor containing `philosophy/`, `goals/`, `actions/`. If none
+   is found, tell the user to run `/rl-init` first, and stop.
 
 2. **Load the lens and the context.** Read everything in `philosophy/` and the
-   existing goal files under `goals/` — recurse into its dated subfolders (note
-   which are `active`). You cannot check a goal for consistency without them.
+   live goal files under `goals/open/` (glance at `goals/closed/` too when it
+   matters for consistency). You cannot check a goal for consistency without them.
 
 3. **Understand the intent.** If the seed is a goal, clarify what success would
    really look like and why it matters now. If the seed is empty, summarise the
-   active goals and ask which to advance, refine, or retire.
+   open goals and ask which to advance, refine, or retire.
 
 4. **Check it against the philosophy and other goals — honestly.**
    - Does this goal honour the stated principles, or quietly cut against one?
      If it conflicts, say so and work it out with the user before writing.
-   - Does it collide with or crowd out an existing active goal? Name the
+   - Does it collide with or crowd out an existing open goal? Name the
      trade-off. Two goals that both demand the user's best hours are in tension.
    - If the goal is off-lens, don't launder it into an acceptable-sounding
      version — tell the user plainly.
@@ -64,13 +64,15 @@ Take the seed as a starting point and ask for whatever else you need.
    - If a goal can't be made checkable, that's a signal: reshape it until it can,
      or record honestly that it's a direction rather than a goal.
 
-6. **Write it down.** One file per goal, filed under a subfolder named for the
-   goal's **creation local date**: `goals/YYYY-MM-DD/<slug>.md` (kebab-case slug,
-   e.g. `goals/2026-07-06/side-project.md`). When refining, find the goal's
-   existing file wherever it already lives — search the dated subfolders by slug —
-   and edit it in place, appending to its history with a timestamp; the file stays
-   in its original creation-date folder. Don't create a duplicate under today's
-   date. Suggested shape:
+6. **Write it down.** One file per goal at `goals/open/<slug>.md` (kebab-case
+   slug, e.g. `goals/open/side-project.md`). When refining, edit the existing file
+   in place — find it by slug under `goals/open/` — appending to its history with a
+   timestamp. Don't create a duplicate. When the goal becomes **accomplished** or
+   **abandoned**, set its `status` and **move** the file to
+   `goals/closed/<slug>.md`; also move its action file from `actions/open/<slug>.md`
+   to `actions/closed/<slug>.md`, and rewrite the cross-reference paths in both (the
+   goal's `actions:` line and the action's `goal:` line) to point at `closed/`.
+   Suggested shape:
 
    ```markdown
    # <Goal title>
@@ -78,6 +80,7 @@ Take the seed as a starting point and ask for whatever else you need.
    - status: active                    # active | accomplished | abandoned
    - created: YYYY-MM-DD HH:MM ±HH:MM (Zone/Name)   # to the minute, UTC offset + timezone name
    - target: <date or cadence, if any>
+   - actions: actions/open/<slug>.md
 
    ## Why this goal
    How it follows from the philosophy and fits the other goals.
@@ -91,17 +94,18 @@ Take the seed as a starting point and ask for whatever else you need.
    YYYY-MM-DD HH:MM ±HH:MM (Zone/Name) — created / refined: <what changed and why>
    ```
 
-   Read the current date, time, and timezone from the system clock (do not guess).
-   Use that **local date** for the subfolder, and record `created` **to the minute
-   with both the UTC offset and the IANA timezone name** — e.g.
-   `2026-07-06 14:30 +08:00 (Asia/Shanghai)`. Include both on every timestamp: the
-   offset pins the instant, and the zone name keeps it unambiguous across DST and
-   even if the user later moves timezones. Read the IANA zone from the system (e.g.
-   the `TZ` env var or `/etc/localtime`); only if you truly can't determine the
-   name, record the offset alone rather than guessing a zone.
+   Read the current date, time, and timezone from the system clock (do not guess),
+   and record `created` **to the minute with both the UTC offset and the IANA
+   timezone name** — e.g. `2026-07-06 14:30 +08:00 (Asia/Shanghai)`. Include both
+   on every timestamp: the offset pins the instant, and the zone name keeps it
+   unambiguous across DST and even if the user later moves timezones. Read the IANA
+   zone from the system (e.g. the `TZ` env var or `/etc/localtime`); only if you
+   truly can't determine the name, record the offset alone rather than guessing a
+   zone.
 
-7. **Confirm.** Show the file, restate the criteria in one line, and point the
-   user to `/rl-pi-review` once they've acted for a while.
+7. **Confirm and point onward.** Show the file, restate the criteria in one line,
+   and point the user to `/rl-action` to turn the goal into concrete, doable, timed
+   steps — then `/rl-pi-review` or `/rl-human-review` once they've acted for a while.
 
 ## Stance
 

@@ -33,10 +33,10 @@ invent values the user did not express.
 
 ## Steps
 
-1. **Locate the workspace.** Discovery order: the `LIFE_HARNESS_WORKSPACE`
-   environment variable → the path in `~/.life-harness/workspace` → an
-   ancestor/child directory containing `philosophy/`, `goals/`, `reviews/`. If
-   none is found, tell the user to run `/rl-init` first, and stop.
+1. **Locate the workspace.** The workspace is the current working directory (the
+   folder life-harness is installed into); if invoked from a subdirectory, walk up
+   to the nearest ancestor containing `philosophy/`, `goals/`, `actions/`. If none
+   is found, tell the user to run `/rl-init` first, and stop.
 
 2. **Read the existing philosophy.** Load the files already in `philosophy/` so
    you build on them and catch contradictions rather than duplicating or

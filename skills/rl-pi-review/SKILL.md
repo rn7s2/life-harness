@@ -1,48 +1,55 @@
 ---
 name: rl-pi-review
 description: >-
-  Review real progress against a life-harness goal using pi0 activity evidence,
-  assess it objectively against the goal's criteria and the user's philosophy,
-  and propose refinements when the evidence calls for it. Use when the user runs
-  /rl-pi-review, asks to review progress / how they're doing on a goal, or asks
-  for an honest check over a time window (e.g. "the side-project goal, this past
-  week"). Reads goals/ and philosophy/, pulls activity data from pi0, writes to
-  reviews/.
+  Observe real computer activity with pi0 and judge it against a life-harness
+  goal's action plan and success criteria and the user's philosophy — honestly,
+  not as a cheerleader — then log what happened into the action file and refine.
+  Use when the user runs /rl-pi-review, asks to review progress / how they're
+  doing on a goal from their computer activity, or asks for an honest check over a
+  time window (e.g. "the side-project goal, this past week"). Reads goals/,
+  actions/, philosophy/; pulls activity data from pi0; writes to actions/ and
+  goals/.
 metadata:
   loop: life-harness
-  step: 3-review
+  step: 4-pi-review
 ---
 
-# rl-pi-review — observe the evidence, then tell the truth
+# rl-pi-review — observe the computer evidence, then tell the truth
 
-This is the **observe → reason** turn of the loop. It compares what the user
-actually did — from real activity evidence — against the goal's success criteria
-and their philosophy, and writes a dated, honest review. It is the step where the
-AI is explicitly **not** a cheerleader.
+This is the **observe → reason** turn of the loop for work done **on the
+computer**. It compares what the user actually did — from real pi0 activity
+evidence — against the goal's action plan (its timed steps) and success criteria
+and their philosophy, and logs an honest verdict straight into the action file. It
+is the step where the AI is explicitly **not** a cheerleader.
+
+For actions done in the physical world, use `/rl-human-review` instead — it does
+the same job from what the user reports rather than from pi0.
 
 ## Input
 
 Whatever the user typed after `/rl-pi-review` is a **seed, not a strict
 argument**:
 - A goal and/or a time window (e.g. "the side-project goal, this past week").
-- **Nothing** → review all active goals since the last review in `reviews/`.
+- **Nothing** → review the open goals whose action plans have computer-visible
+  steps, since each one's last log entry.
 
 Take the seed as a starting point and ask for any missing piece (which goal,
 what window) rather than guessing.
 
 ## Steps
 
-1. **Locate the workspace.** Discovery order: the `LIFE_HARNESS_WORKSPACE`
-   environment variable → the path in `~/.life-harness/workspace` → an
-   ancestor/child directory containing `philosophy/`, `goals/`, `reviews/`. If
-   none is found, tell the user to run `/rl-init` first, and stop.
+1. **Locate the workspace.** The workspace is the current working directory (the
+   folder life-harness is installed into); if invoked from a subdirectory, walk up
+   to the nearest ancestor containing `philosophy/`, `goals/`, `actions/`. If none
+   is found, tell the user to run `/rl-init` first, and stop.
 
-2. **Load the standard to judge against.** Read the target goal file(s) under
-   `goals/` — recurse into its dated subfolders — and all of `philosophy/`. Pull
-   out the **success criteria** verbatim
-   — these are what the evidence will be measured against — and note how the goal
-   said progress would be observed. Check `reviews/` for the last review to set
-   the default window's start.
+2. **Load the standard to judge against.** Read the target goal file under
+   `goals/open/`, **its matching action file** `actions/open/<slug>.md`, and all
+   of `philosophy/`. Pull out the goal's **success criteria** and the action
+   plan's **timed steps** verbatim — these are what the evidence will be measured
+   against — and note, from the action's "How progress is observed" section, which
+   steps are computer-visible. Read the action's `## Log`; the last entry's
+   timestamp is the default start of this review's window.
 
 3. **Fix the time window.** Confirm the exact start and end **to the minute, each
    with its UTC offset and IANA timezone name** — pi0 timestamps are local
@@ -65,16 +72,20 @@ what window) rather than guessing.
      time.
    - This data is **personal and sensitive** — keystrokes can include passwords.
      Use it only to assess the goal, never surface secrets or credentials in the
-     review, and summarise rather than quoting raw keystrokes.
+     log, and summarise rather than quoting raw keystrokes.
    - **If pi0 is not connected**, say so plainly. Ask the user for the evidence
-     the goal named (or another concrete source). Do not fabricate activity, and
-     do not assess from assumption — an honest review needs real evidence.
+     the action plan named (or another concrete source), or suggest
+     `/rl-human-review` if the steps were done off the computer. Do not fabricate
+     activity, and do not assess from assumption — an honest review needs real
+     evidence.
 
-5. **Assess objectively, criterion by criterion.** For each success criterion,
-   judge **met / partial / not met** and cite the specific evidence for that
-   verdict. Distinguish what the evidence shows from what it can't show; note
-   gaps instead of filling them with optimism. Resist both flattery and undue
-   harshness — report what happened.
+5. **Assess objectively, step and criterion by criterion.** For each timed step in
+   the action plan and each success criterion, judge **done / partial / not done**
+   (or **met / partial / not met**) and cite the specific evidence for that
+   verdict. Hold steps to their time constraint — a step "Mon–Fri, 2h before noon"
+   that happened twice, late, is partial, and say why. Distinguish what the
+   evidence shows from what it can't show; note gaps instead of filling them with
+   optimism. Resist both flattery and undue harshness — report what happened.
 
 6. **Check philosophy, not just the number.** Ask whether the *way* the user
    acted honoured their stated values, even where the metric moved. Moving toward
@@ -83,47 +94,38 @@ what window) rather than guessing.
 
 7. **Propose refinements when the evidence calls for it.** Based on what actually
    happened, suggest concrete changes: sharpen a vague criterion, adjust an
-   unrealistic or too-easy target, split or retire a goal, or flag a
-   philosophy/goal tension the week exposed. Recommend, with reasons — the user
-   decides. If a goal's criteria are all met, say so and propose marking it
-   `accomplished`.
+   unrealistic or too-easy target, re-plan a step that isn't working, split or
+   retire a goal, or flag a philosophy/goal tension the window exposed. Recommend,
+   with reasons — the user decides. Route criterion changes to `/rl-goal` and step
+   changes to `/rl-action`. If a goal's criteria are all met, say so and propose
+   marking it `accomplished`.
 
-8. **Write the review.** One file per review, filed under a subfolder named for
-   the **natural local date** — the calendar date in the user's current timezone:
-   `reviews/YYYY-MM-DD/<goal-slug>.md`. Read the current date, time, and timezone
-   from the system clock (do not guess); use the local date for the subfolder, and
-   record `reviewed` and the window inside **to the minute with the UTC offset and
-   IANA timezone name**.
-   (If you somehow review the same goal twice in one local day, append `-HHMM` to
-   the file to disambiguate.) Suggested shape:
+8. **Log the verdict into the action file.** Do **not** write a separate review
+   file. Append one entry to the `## Log` section of `actions/open/<slug>.md`,
+   tick or adjust the affected Plan checkboxes, and bump the action's `updated`.
+   Read the current date, time, and timezone from the system clock (do not guess);
+   record the timestamp and window endpoints **to the minute with the UTC offset
+   and IANA timezone name**. Entry shape:
 
    ```markdown
-   # Review — <goal title> — YYYY-MM-DD
-
-   - reviewed: YYYY-MM-DD HH:MM ±HH:MM (Zone/Name)   # to the minute, offset + timezone name
-   - window: <start> to <end>                        # each endpoint to the minute, offset + name
-   - goal: goals/YYYY-MM-DD/<slug>.md
-
-   ## Evidence
-   What pi0 (and any other source) actually shows for this window.
-
-   ## Against the criteria
-   - Criterion 1 — met / partial / not met — <evidence>
-   - Criterion 2 — ...
-
-   ## Philosophy check
-   Did the user act in line with their values, not just move the numbers?
-
-   ## Verdict & refinements
-   Honest bottom line, and any proposed change to the goal or philosophy.
+   YYYY-MM-DD HH:MM ±HH:MM (Zone/Name) — [pi0] — window <start> to <end>
+   - Step / criterion — done | partial | not done — <specific evidence>
+   - Step / criterion — ...
+   - Philosophy check: <did the way they acted honour their values?>
+   - Verdict & refinements: <honest bottom line; any proposed goal/action change>
    ```
 
-9. **Offer to apply refinements.** If the user accepts a proposed change, hand
-   off to `/rl-goal` (or edit the goal file) and update its status/history. Then
-   the loop returns to acting.
+9. **Update the goal, and close if reached.** Append a dated line to the goal's
+   `## Notes / history` capturing the verdict in one sentence. If the criteria are
+   all met and the user agrees, set the goal's `status: accomplished` and **move**
+   `goals/open/<slug>.md → goals/closed/<slug>.md` and
+   `actions/open/<slug>.md → actions/closed/<slug>.md`, rewriting the cross-
+   reference paths in both (the goal's `actions:` line and the action's `goal:`
+   line) to `closed/`. Then the loop returns to acting — or, if refinements were
+   accepted, hand off to `/rl-goal` or `/rl-action`.
 
 ## Stance
 
 The point of this step is an honest mirror. Hold the user's real behaviour
-against their own stated goals and philosophy, and tell them where they diverge —
-kindly, specifically, and without spin.
+against their own action plan, goals, and philosophy, and tell them where they
+diverge — kindly, specifically, and without spin.

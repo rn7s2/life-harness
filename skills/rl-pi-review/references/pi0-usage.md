@@ -32,11 +32,11 @@ capabilities regardless of which agent is running.
 - Inputs accept epoch-ms or ISO-8601; a bare ISO datetime with no offset is
   interpreted in the user's local timezone.
 - **Present all times to the user in local time.** But when you *record* a time
-  in the review file (the window endpoints, `reviewed`), append both the UTC
-  offset and the IANA timezone name — take the name straight from the record's
-  `timeZone` and derive the offset from `timeZone`/`ts` — e.g.
-  `2026-07-06 09:00 +08:00 (Asia/Shanghai)`, so the written review stays
-  unambiguous across DST and even if the user later moves timezones.
+  in the action file's log entry (the window endpoints, the entry timestamp),
+  append both the UTC offset and the IANA timezone name — take the name straight
+  from the record's `timeZone` and derive the offset from `timeZone`/`ts` — e.g.
+  `2026-07-06 09:00 +08:00 (Asia/Shanghai)`, so the written log stays unambiguous
+  across DST and even if the user later moves timezones.
 - Each OCR item carries `(x, y, w, h)` normalised to `[0,1]` per display; `x,y`
   is the text box's top-left. Keystroke records carry a raw `text` token string
   whose format is described by `app-guidance`.

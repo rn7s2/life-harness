@@ -36,8 +36,8 @@ Take the seed as a starting point and ask for whatever else you need.
    none is found, tell the user to run `/rl-init` first, and stop.
 
 2. **Load the lens and the context.** Read everything in `philosophy/` and the
-   existing files in `goals/` (note which are `active`). You cannot check a goal
-   for consistency without them.
+   existing goal files under `goals/` — recurse into its dated subfolders (note
+   which are `active`). You cannot check a goal for consistency without them.
 
 3. **Understand the intent.** If the seed is a goal, clarify what success would
    really look like and why it matters now. If the seed is empty, summarise the
@@ -64,15 +64,19 @@ Take the seed as a starting point and ask for whatever else you need.
    - If a goal can't be made checkable, that's a signal: reshape it until it can,
      or record honestly that it's a direction rather than a goal.
 
-6. **Write it down.** One file per goal, kebab-case slug (`goals/side-project.md`).
-   When refining, edit the existing file and append to its history with a date;
-   don't create a duplicate. Suggested shape:
+6. **Write it down.** One file per goal, filed under a subfolder named for the
+   goal's **creation local date**: `goals/YYYY-MM-DD/<slug>.md` (kebab-case slug,
+   e.g. `goals/2026-07-06/side-project.md`). When refining, find the goal's
+   existing file wherever it already lives — search the dated subfolders by slug —
+   and edit it in place, appending to its history with a timestamp; the file stays
+   in its original creation-date folder. Don't create a duplicate under today's
+   date. Suggested shape:
 
    ```markdown
    # <Goal title>
 
-   - status: active            # active | accomplished | abandoned
-   - created: YYYY-MM-DD        # use today's real date
+   - status: active                    # active | accomplished | abandoned
+   - created: YYYY-MM-DD HH:MM ±HH:MM (Zone/Name)   # to the minute, UTC offset + timezone name
    - target: <date or cadence, if any>
 
    ## Why this goal
@@ -84,10 +88,17 @@ Take the seed as a starting point and ask for whatever else you need.
    - [ ] How progress will be observed
 
    ## Notes / history
-   YYYY-MM-DD — created / refined: <what changed and why>
+   YYYY-MM-DD HH:MM ±HH:MM (Zone/Name) — created / refined: <what changed and why>
    ```
 
-   Use the current real date; do not guess it.
+   Read the current date, time, and timezone from the system clock (do not guess).
+   Use that **local date** for the subfolder, and record `created` **to the minute
+   with both the UTC offset and the IANA timezone name** — e.g.
+   `2026-07-06 14:30 +08:00 (Asia/Shanghai)`. Include both on every timestamp: the
+   offset pins the instant, and the zone name keeps it unambiguous across DST and
+   even if the user later moves timezones. Read the IANA zone from the system (e.g.
+   the `TZ` env var or `/etc/localtime`); only if you truly can't determine the
+   name, record the offset alone rather than guessing a zone.
 
 7. **Confirm.** Show the file, restate the criteria in one line, and point the
    user to `/rl-pi-review` once they've acted for a while.

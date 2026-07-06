@@ -37,14 +37,19 @@ what window) rather than guessing.
    ancestor/child directory containing `philosophy/`, `goals/`, `reviews/`. If
    none is found, tell the user to run `/rl-init` first, and stop.
 
-2. **Load the standard to judge against.** Read the target goal file(s) in
-   `goals/` and all of `philosophy/`. Pull out the **success criteria** verbatim
+2. **Load the standard to judge against.** Read the target goal file(s) under
+   `goals/` — recurse into its dated subfolders — and all of `philosophy/`. Pull
+   out the **success criteria** verbatim
    — these are what the evidence will be measured against — and note how the goal
    said progress would be observed. Check `reviews/` for the last review to set
    the default window's start.
 
-3. **Fix the time window.** Confirm the exact start and end (local time). If the
-   user said "this past week", state the concrete dates you'll use.
+3. **Fix the time window.** Confirm the exact start and end **to the minute, each
+   with its UTC offset and IANA timezone name** — pi0 timestamps are local
+   wall-clock, so record the offset and zone (e.g.
+   `2026-07-06 09:00 +08:00 (Asia/Shanghai)`), not a bare date. If the user said
+   "this past week", state the concrete start/end you'll use. If the user changed
+   timezones during the window, note it so the offsets aren't misread.
 
 4. **Gather the evidence from pi0.** pi0 is the intended evidence source — a
    personal activity store exposed as an MCP server. Use its tools **in this
@@ -83,14 +88,21 @@ what window) rather than guessing.
    decides. If a goal's criteria are all met, say so and propose marking it
    `accomplished`.
 
-8. **Write the review.** One file, `reviews/YYYY-MM-DD-<goal-slug>.md`, using
-   today's real date. Suggested shape:
+8. **Write the review.** One file per review, filed under a subfolder named for
+   the **natural local date** — the calendar date in the user's current timezone:
+   `reviews/YYYY-MM-DD/<goal-slug>.md`. Read the current date, time, and timezone
+   from the system clock (do not guess); use the local date for the subfolder, and
+   record `reviewed` and the window inside **to the minute with the UTC offset and
+   IANA timezone name**.
+   (If you somehow review the same goal twice in one local day, append `-HHMM` to
+   the file to disambiguate.) Suggested shape:
 
    ```markdown
    # Review — <goal title> — YYYY-MM-DD
 
-   - window: <start> to <end>
-   - goal: goals/<slug>.md
+   - reviewed: YYYY-MM-DD HH:MM ±HH:MM (Zone/Name)   # to the minute, offset + timezone name
+   - window: <start> to <end>                        # each endpoint to the minute, offset + name
+   - goal: goals/YYYY-MM-DD/<slug>.md
 
    ## Evidence
    What pi0 (and any other source) actually shows for this window.

@@ -27,18 +27,30 @@ reviews/      dated progress reviews built from real evidence
 
 ## File conventions
 
+**Timestamps.** Record moments (a goal's `created`, history entries, a review's
+`reviewed`, and window endpoints) **to the minute, with a UTC offset and the IANA
+timezone name** — like `2026-07-06 14:30 +08:00 (Asia/Shanghai)`. Record both: the
+offset pins the instant, and the zone name keeps every record unambiguous across
+DST and even if you move across timezones. Both goals and reviews are filed
+under a subfolder named for their **natural local date** — goals by their creation
+date (`goals/YYYY-MM-DD/<slug>.md`), reviews by the review date
+(`reviews/YYYY-MM-DD/<goal-slug>.md`) — so the tree browses by day.
+
 ### philosophy/
 One file per principle or theme, kebab-case (`mornings.md`, `deep-work.md`).
 Each file states the principle, why it matters to you, and how to decide with it.
 
 ### goals/
-One file per goal, kebab-case slug (`side-project.md`). Suggested shape:
+One file per goal, filed under a subfolder named for its **creation local date**:
+`YYYY-MM-DD/<slug>.md` (kebab-case slug, e.g. `goals/2026-07-06/side-project.md`).
+Refining edits the file in place, so it stays in its creation-date folder.
+Suggested shape:
 
 ```markdown
 # <Goal title>
 
-- status: active            # active | accomplished | abandoned
-- created: YYYY-MM-DD
+- status: active                    # active | accomplished | abandoned
+- created: YYYY-MM-DD HH:MM ±HH:MM (Zone/Name)   # to the minute, offset + timezone name
 - target: <date or cadence, if any>
 
 ## Why this goal
@@ -49,20 +61,23 @@ How it follows from your philosophy and fits your other goals.
 - [ ] Another concrete, checkable criterion
 
 ## Notes / history
-Refinements over time, with dates.
+Refinements over time, each with a timestamp (to the minute, offset + timezone name).
 ```
 
 Every goal must be consistent with your philosophy and your other goals, and
 must carry **clear, checkable criteria** for what "accomplished" means.
 
 ### reviews/
-One file per review, named `YYYY-MM-DD-<goal-slug>.md`. Suggested shape:
+One file per review, filed under a natural-local-date subfolder:
+`YYYY-MM-DD/<goal-slug>.md` (the date is your local calendar date). Suggested
+shape:
 
 ```markdown
 # Review — <goal title> — YYYY-MM-DD
 
-- window: <start> to <end>
-- goal: goals/<slug>.md
+- reviewed: YYYY-MM-DD HH:MM ±HH:MM (Zone/Name)   # to the minute, offset + timezone name
+- window: <start> to <end>                        # each endpoint to the minute, offset + name
+- goal: goals/YYYY-MM-DD/<slug>.md
 
 ## Evidence
 What the activity data (e.g. pi0) and any other sources actually show.

@@ -81,12 +81,15 @@ them:
 - **philosophy/** — one file per principle or theme, kebab-case
   (`mornings.md`, `deep-work.md`). Each states the principle, why it matters,
   and how to decide with it.
-- **goals/** — one file per goal, kebab-case slug (`side-project.md`). Each
-  carries a status, dates, and an explicit **Success criteria** section with
-  checkable criteria.
-- **reviews/** — one file per review, named `YYYY-MM-DD-<goal-slug>.md`. Each
-  records the window reviewed, the evidence, an objective assessment against the
-  goal's criteria, a philosophy-alignment check, and any proposed refinements.
+- **goals/** — one file per goal, filed under a subfolder named for its creation
+  local date: `YYYY-MM-DD/<slug>.md` (kebab-case slug). Each carries a status,
+  timestamps, and an explicit **Success criteria** section with checkable
+  criteria. Refining edits the file in place, so it stays in its creation-date
+  folder.
+- **reviews/** — one file per review, filed under a natural-local-date subfolder:
+  `YYYY-MM-DD/<goal-slug>.md`, where the date is the user's local calendar date.
+  Each records the window reviewed, the evidence, an objective assessment against
+  the goal's criteria, a philosophy-alignment check, and any proposed refinements.
 
 Keep the workspace human-browsable at every step: clear filenames, plain
 Markdown, no hidden state inside it.

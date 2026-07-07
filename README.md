@@ -27,7 +27,7 @@ npx skills add rn7s2/life-harness --skill '*' -y
 Then run `/rl-init` in that folder to scaffold the workspace, and follow
 [the loop](#the-loop-in-skills) from there.
 
-`grilling` is optional but recommended: `rl-goal`, `rl-action`, and `rl-work` use
+`grilling` is optional but recommended: `rl-goal`, `rl-plan`, and `rl-work` use
 it to grill a goal, plan, or task definition before writing it down, and skip that
 step cleanly when it isn't installed. (`grilling` is the model-invocable skill; the
 `grill-me` command is only a human-typed alias for it, so the skills call `grilling`
@@ -35,7 +35,7 @@ directly.) For the skills to actually invoke it, `grilling` must appear in Claud
 skill list under exactly that name — after installing, type `/` and confirm you see
 `grilling` (not, say, a plugin-namespaced `some-plugin:grilling`). The command name
 comes from the install **directory**, not the skill's frontmatter `name`; if yours
-differs, update the `grilling` references in `rl-goal`, `rl-action`, and `rl-work` to
+differs, update the `grilling` references in `rl-goal`, `rl-plan`, and `rl-work` to
 match. Otherwise the skills are self-contained —
 they depend only on the shared Markdown workspace (and, for `rl-pi-review`, a
 connected [`pi0`](https://github.com/rn7s2/pi0) MCP server).
@@ -139,12 +139,12 @@ Discusses a goal with the AI and writes it down.
 - Every goal must be consistent with your philosophy and existing goals, and must
   carry **clear, checkable criteria** for what "accomplished" means.
 
-### `rl-action`
+### `rl-plan`
 
 Turns a goal into concrete, doable, timed steps you and the AI agree on.
 
 - **Input:** which goal to plan for, or an existing action plan to refine —
-  e.g. `/rl-action the side-project goal`. Leave it blank and the AI finds open
+  e.g. `/rl-plan the side-project goal`. Leave it blank and the AI finds open
   goals that lack a plan.
 - **Reads:** `goals/`, `philosophy/`
 - **Writes:** `actions/open/<slug>.md` (one per goal, same slug)
@@ -205,7 +205,7 @@ Observes what you did **in the physical world** — the steps pi0 can't see.
 1. `/rl-init` — prepare the workspace (in the folder you installed into).
 2. `/rl-philosophy how I want to spend my time` — write down what you value.
 3. `/rl-goal spend two focused hours a day building my side project` — set a goal with clear criteria.
-4. `/rl-action the side-project goal` — agree on concrete, doable, timed steps.
+4. `/rl-plan the side-project goal` — agree on concrete, doable, timed steps.
 5. _Act — on the computer or in the physical world_ — or `/rl-work the side-project
    landing page` to delegate a computer-side task to the AI, done in `work/`.
 6. `/rl-pi-review the side-project goal, this past week` — observe your computer

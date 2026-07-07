@@ -116,7 +116,7 @@ what window) rather than guessing.
    unrealistic or too-easy target, re-plan a step that isn't working, split or
    retire a goal, or flag a philosophy/goal tension the window exposed. Recommend,
    with reasons — the user decides. Route criterion changes to `/rl-goal` and step
-   changes to `/rl-action`. If a goal's criteria are all met, say so and propose
+   changes to `/rl-plan`. If a goal's criteria are all met, say so and propose
    marking it `accomplished`.
 
 8. **Log the verdict into the action file.** Do **not** write a separate review
@@ -141,7 +141,7 @@ what window) rather than guessing.
    `actions/open/<slug>.md → actions/closed/<slug>.md`, rewriting the cross-
    reference paths in both (the goal's `actions:` line and the action's `goal:`
    line) to `closed/`. Then the loop returns to acting — or, if refinements were
-   accepted, hand off to `/rl-goal` or `/rl-action`.
+   accepted, hand off to `/rl-goal` or `/rl-plan`.
 
 ## Stance
 

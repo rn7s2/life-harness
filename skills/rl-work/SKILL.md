@@ -22,7 +22,7 @@ every artifact **inside the workspace** under `work/` so this and future agents
 have comprehensive context, and links the work back to the goal it serves so a
 later review can judge whether it actually moved the criteria.
 
-Where `rl-action` **plans** the steps and `rl-pi-review` / `rl-human-review`
+Where `rl-plan` **plans** the steps and `rl-pi-review` / `rl-human-review`
 **observe** them, `rl-work` is where the AI **does** the computer-side steps on
 the user's behalf — and leaves a record honest enough to review.
 

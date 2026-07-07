@@ -4,7 +4,7 @@ description: >-
   Set up (or repair) the life-harness workspace in the current folder — the
   philosophy/, goals/, actions/, and work/ directories plus the conventions the
   other rl- skills rely on. Run this once, first, before rl-philosophy, rl-goal,
-  rl-action, rl-work, rl-pi-review, or rl-human-review. Use when the user runs
+  rl-plan, rl-work, rl-pi-review, or rl-human-review. Use when the user runs
   /rl-init, or asks to initialize, set up, bootstrap, or scaffold life-harness /
   a life workspace.
 metadata:
@@ -77,7 +77,7 @@ instead; otherwise use the current working directory without asking for a path.
 5. **Report** the created tree and tell the user the next steps in the loop:
    - `/rl-philosophy` — write down what you value (the lens).
    - `/rl-goal` — set a goal with clear, checkable criteria.
-   - `/rl-action` — turn a goal into concrete, doable, timed steps.
+   - `/rl-plan` — turn a goal into concrete, doable, timed steps.
    - _Act — on the computer or in the physical world…_
    - `/rl-work` — …or delegate computer-side tasks to the AI, kept in `work/`.
    - `/rl-pi-review` — observe computer activity via pi0 and assess.
@@ -85,7 +85,7 @@ instead; otherwise use the current working directory without asking for a path.
 
 ## Conventions the other skills rely on
 
-Establish these here so `rl-philosophy`, `rl-goal`, `rl-action`, `rl-work`,
+Establish these here so `rl-philosophy`, `rl-goal`, `rl-plan`, `rl-work`,
 `rl-pi-review`, and `rl-human-review` can assume them:
 
 - **Locating the workspace.** The workspace is the current working directory (the

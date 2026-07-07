@@ -117,7 +117,7 @@ Take the seed as a starting point and ask for whatever else you need.
    zone.
 
 7. **Confirm and point onward.** Show the file, restate the criteria in one line,
-   and point the user to `/rl-action` to turn the goal into concrete, doable, timed
+   and point the user to `/rl-plan` to turn the goal into concrete, doable, timed
    steps — then `/rl-pi-review` or `/rl-human-review` once they've acted for a while.
 
 ## Stance

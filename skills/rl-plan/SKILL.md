@@ -1,18 +1,18 @@
 ---
-name: rl-action
+name: rl-plan
 description: >-
   Turn a life-harness goal into concrete, doable, timed actions and write them
   down as the goal's action plan, consistent with the user's philosophy. Use when
-  the user runs /rl-action, asks how to actually reach a goal, wants to plan or
+  the user runs /rl-plan, asks how to actually reach a goal, wants to plan or
   break down a goal into steps, or names an existing action plan to refine. Reads
   goals/ and philosophy/; writes one action file per goal to actions/open/. The
   plan is later observed against by rl-pi-review and rl-human-review.
 metadata:
   loop: life-harness
-  step: 3-action
+  step: 3-plan
 ---
 
-# rl-action — agree on concrete, doable, timed steps
+# rl-plan — agree on concrete, doable, timed steps
 
 A goal states *what* "accomplished" means; an **action plan** states *how* the
 user will get there — as steps that are **doable** and **timed** (each with a
@@ -26,7 +26,7 @@ There is **one action file per goal**, sharing the goal's slug:
 
 ## Input
 
-Whatever the user typed after `/rl-action` is a **seed, not a strict argument**:
+Whatever the user typed after `/rl-plan` is a **seed, not a strict argument**:
 - A goal name/slug → plan (or re-plan) the actions for that goal.
 - An existing action plan → refine it.
 - **Nothing** → scan `goals/open/` for goals with no action file or a weak/stale

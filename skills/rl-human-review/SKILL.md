@@ -85,7 +85,7 @@ Take the seed as a starting point and ask for what you need.
    too-easy target, re-plan a step that isn't working, split or retire a goal, or
    flag a philosophy/goal tension the window exposed. Recommend, with reasons — the
    user decides. Route criterion changes to `/rl-goal` and step changes to
-   `/rl-action`. If the criteria are all met, say so and propose marking the goal
+   `/rl-plan`. If the criteria are all met, say so and propose marking the goal
    `accomplished`.
 
 8. **Log the verdict into the action file.** Do **not** write a separate review
@@ -110,7 +110,7 @@ Take the seed as a starting point and ask for what you need.
    `actions/open/<slug>.md → actions/closed/<slug>.md`, rewriting the cross-
    reference paths in both (the goal's `actions:` line and the action's `goal:`
    line) to `closed/`. Then the loop returns to acting — or, if refinements were
-   accepted, hand off to `/rl-goal` or `/rl-action`.
+   accepted, hand off to `/rl-goal` or `/rl-plan`.
 
 ## Stance
 

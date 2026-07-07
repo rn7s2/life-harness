@@ -154,7 +154,7 @@ The seven `rl-` skills all operate on this workspace:
 1. `/rl-init` — prepare the workspace (this file).
 2. `/rl-philosophy` — write down what you value.
 3. `/rl-goal` — set a goal with clear criteria.
-4. `/rl-action` — turn the goal into concrete, doable, timed steps.
+4. `/rl-plan` — turn the goal into concrete, doable, timed steps.
 5. _Act — on the computer or in the physical world…_
 6. `/rl-work` — …or delegate computer-side tasks to the AI; done in `work/`.
 7. `/rl-pi-review` — observe computer activity via pi0; assess and refine.

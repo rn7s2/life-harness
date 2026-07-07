@@ -56,9 +56,12 @@ start.
    tasks, but don't launder off-lens work into looking goal-serving either. If a
    task cuts against a stated principle, flag it before acting.
 
-3. **Pin down "done".** Restate the concrete deliverable and the definition of
-   done in a line or two, and confirm anything ambiguous with the user rather than
-   guessing. A task you can't tell is finished can't be reviewed.
+3. **Pin down "done" — grill the ambiguity out.** Restate the concrete
+   deliverable and the definition of done in a line or two. Invoke the `grill-me`
+   skill to interrogate the deliverable and the definition of done until nothing
+   ambiguous remains, rather than guessing — then confirm the result with the
+   user. A task you can't tell is finished can't be reviewed. (Requires the
+   external `grill-me` skill to be installed; skip this if it is unavailable.)
 
 4. **Open the work record.** One folder per task at `work/open/<slug>/`
    (kebab-case slug), with a `task.md` brief inside using the shape below. Keeping

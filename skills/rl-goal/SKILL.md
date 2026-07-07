@@ -39,9 +39,15 @@ Take the seed as a starting point and ask for whatever else you need.
    live goal files under `goals/open/` (glance at `goals/closed/` too when it
    matters for consistency). You cannot check a goal for consistency without them.
 
-3. **Understand the intent.** If the seed is a goal, clarify what success would
-   really look like and why it matters now. If the seed is empty, summarise the
-   open goals and ask which to advance, refine, or retire.
+3. **Understand the intent — and grill it.** If the seed is a goal, clarify what
+   success would really look like and why it matters now. Before shaping it,
+   invoke the `grill-me` skill to interrogate the user on *why this, why now*,
+   whether the goal is genuinely theirs, and what "accomplished" would really look
+   like; carry what surfaces into the criteria in step 5. Stop grilling once the
+   intent and success are clear enough to make checkable. If the seed is empty,
+   summarise the open goals and ask which to advance, refine, or retire.
+   (Requires the external `grill-me` skill to be installed; skip this if it is
+   unavailable.)
 
 4. **Check it against the philosophy and other goals — honestly.**
    - Does this goal honour the stated principles, or quietly cut against one?

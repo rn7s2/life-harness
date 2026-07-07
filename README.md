@@ -4,6 +4,35 @@ A set of skills for running your life like an agent runs a task:
 set a goal, plan concrete actions, act, observe the real evidence, let the AI push
 back, and iterate.
 
+## Install
+
+The skills follow the [Agent Skills](https://github.com/vercel-labs/skills) spec —
+one `SKILL.md` per skill — so they install into **any** supported agent (Claude
+Code, Cursor, Cline, OpenCode, and 70+ others). Run the commands below from inside
+the folder you want as your life-harness workspace: **that folder becomes the
+workspace**, holding all your philosophy, goals, actions, and work.
+
+```bash
+# Claude Code users: create the skills directory first
+mkdir -p .claude/skills
+
+# 1. grill-me — companion skill that pressure-tests your goals,
+#    plans, and tasks before they're written down
+npx skills add mattpocock/skills --skill=grill-me -y
+
+# 2. life-harness — all skills
+npx skills add rn7s2/life-harness --skill '*' -y
+```
+
+Then run `/rl-init` in that folder to scaffold the workspace, and follow
+[the loop](#the-loop-in-skills) from there.
+
+`grill-me` is optional but recommended: `rl-goal`, `rl-action`, and `rl-work` use
+it to grill a goal, plan, or task definition before writing it down, and skip that
+step cleanly when it isn't installed. Otherwise the skills are self-contained —
+they depend only on the shared Markdown workspace (and, for `rl-pi-review`, a
+connected [`pi0`](https://github.com/rn7s2/pi0) MCP server).
+
 ## Background
 
 I built [pi0](https://github.com/rn7s2/pi0) to capture what actually happens on my
@@ -63,27 +92,6 @@ space. When a task is finished or dropped, its folder moves to `closed/`.
 
 Plain Markdown is the only source of truth. No database, nothing hidden — you can
 read, edit, and version-control the whole thing by hand.
-
-## Install
-
-The skills are packaged to the [Agent Skills](https://github.com/vercel-labs/skills)
-spec — one `SKILL.md` per skill — so they install into **any** supported agent
-(Claude Code, Cursor, Cline, OpenCode, and 70+ others) with one command:
-
-```bash
-# from inside the folder you want to be your life-harness workspace:
-npx skills add rn7s2/life-harness
-
-# or pick specific skills / target specific agents
-npx skills add rn7s2/life-harness --skill rl-init --agent '*'
-```
-
-Install into the folder you want to keep your life-harness data in — that folder
-becomes the workspace. Each skill lives under [`skills/`](skills/) as a
-self-contained directory. Once installed, run `/rl-init` there first, then follow
-the loop below. The skills are portable: they carry their own instructions and
-depend only on the shared Markdown workspace (and, for pi0 reviews, a connected
-`pi0` MCP server).
 
 ## Skills
 

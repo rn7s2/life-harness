@@ -56,9 +56,14 @@ Take the seed as a starting point and ask for whatever else you need.
      "Draft the landing page Sat morning, ~2h" — not "work on the landing page".
    - **Checkable** — phrased so a later review can mark it done / partial / not
      done from evidence.
-   Be realistic about the user's actual time and energy — an honest plan the user
-   can keep beats an ambitious one they can't. Surface trade-offs with their other
-   open goals if the hours collide.
+   Before committing the plan, invoke the `grill-me` skill to pressure-test
+   whether the user will *actually* do these steps given their real time and
+   energy — surface the ones they're quietly unlikely to keep, and cut or reshape
+   them until the plan is one they can hold to. (Requires the external `grill-me`
+   skill to be installed; skip this if it is unavailable.) Be realistic about the
+   user's actual time and energy — an honest plan the user can keep beats an
+   ambitious one they can't. Surface trade-offs with their other open goals if the
+   hours collide.
 
 4. **Check against the philosophy and the goal.** Don't plan steps that reach the
    goal by cutting against a stated principle, and make sure the steps genuinely

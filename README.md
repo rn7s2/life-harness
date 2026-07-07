@@ -16,9 +16,10 @@ The idea is to run life the way [ReAct](https://react-lm.github.io/) runs an age
 ```text
 philosophy ── the lens for every step below (does each action still honour it?)
 
-set goal ──► plan actions ──► act ──► observe ──► reason ──► refine
-             ▲               (real)  (pi0 / human)              │
-             └───────────────── loop until reached ─────────────┘
+set goal ──► plan actions ──► act ──────────► observe ──► reason ──► refine
+             ▲             (you, or the AI    (pi0 / human)            │
+             │              via rl-work)                              │
+             └────────────────────── loop until reached ─────────────┘
 ```
 
 Philosophy is not a step — it sits over the whole loop. At **observe**, for
@@ -44,6 +45,9 @@ filesystem hierarchy so both you and the AI can browse it:
   actions/
     open/          # one action plan per open goal — same slug as the goal
     closed/        # action plans for closed goals
+  work/
+    open/          # one folder per task delegated to the AI — brief + artifacts
+    closed/        # finished or abandoned work, kept with its artifacts
 ```
 
 Each goal has exactly **one** action file sharing its slug
@@ -51,6 +55,11 @@ Each goal has exactly **one** action file sharing its slug
 concrete, doable, timed steps, plus a running log of what the reviews observed.
 When a goal is accomplished or abandoned, its goal file and action file move to
 `closed/`.
+
+`work/` is where tasks you delegate to the AI get carried out — the brief and
+every artifact live **in the same repo**, one folder per task, so that this and
+every future agent inherits the full context instead of digging through scratch
+space. When a task is finished or dropped, its folder moves to `closed/`.
 
 Plain Markdown is the only source of truth. No database, nothing hidden — you can
 read, edit, and version-control the whole thing by hand.
@@ -78,15 +87,16 @@ depend only on the shared Markdown workspace (and, for pi0 reviews, a connected
 
 ## Skills
 
-All six skills operate on the same workspace, so they compose into one loop. Each
+All seven skills operate on the same workspace, so they compose into one loop. Each
 runs as a slash command. Whatever you type after it is a **seed, not a strict
 argument** — the AI takes it as a starting point and asks for anything else it needs.
 
 ### `rl-init`
 
 Sets up the workspace in the current folder. Creates the `philosophy/`,
-`goals/open`, `goals/closed`, `actions/open`, and `actions/closed` directories and
-the conventions the other skills rely on. Run this once, first.
+`goals/open`, `goals/closed`, `actions/open`, `actions/closed`, `work/open`, and
+`work/closed` directories (with a `.gitkeep` in each) and the conventions the
+other skills rely on. Run this once, first.
 
 - **Input:** none (the workspace is the folder you run it in)
 - **Writes:** the workspace skeleton
@@ -127,6 +137,24 @@ Turns a goal into concrete, doable, timed steps you and the AI agree on.
   constraint), and checkable — so a later review can tell whether it happened. The
   action file is the material the review skills observe against.
 
+### `rl-work`
+
+Executes concrete tasks you delegate to the AI — the "act" arm of the loop done on
+the computer. It grounds each task in your philosophy and goals, does the work, and
+keeps the brief **and every artifact** in the repo under `work/`.
+
+- **Input:** the task(s) to do, optionally tied to a goal —
+  e.g. `/rl-work draft the landing-page copy for the side-project goal`. Leave it
+  blank and the AI scans `work/open/` and delegatable action steps and asks what
+  to take on.
+- **Reads:** `philosophy/`, `goals/`, `actions/`
+- **Writes:** `work/open/<slug>/` — a `task.md` brief plus artifacts (moves to
+  `work/closed/` when done or abandoned)
+- Not a blind executor: it flags tasks that serve no goal or cut against a
+  principle, records what got done honestly (partial as partial, blocked as
+  blocked), and leaves the record a later review reads as evidence — since the
+  AI's own work doesn't show up in pi0.
+
 ### `rl-pi-review`
 
 Observes your **computer activity** with pi0 and reviews it against a goal.
@@ -161,7 +189,8 @@ Observes what you did **in the physical world** — the steps pi0 can't see.
 2. `/rl-philosophy how I want to spend my time` — write down what you value.
 3. `/rl-goal spend two focused hours a day building my side project` — set a goal with clear criteria.
 4. `/rl-action the side-project goal` — agree on concrete, doable, timed steps.
-5. _Act — on the computer or in the physical world._
+5. _Act — on the computer or in the physical world_ — or `/rl-work the side-project
+   landing page` to delegate a computer-side task to the AI, done in `work/`.
 6. `/rl-pi-review the side-project goal, this past week` — observe your computer
    activity via pi0; or `/rl-human-review` — report real-world outcomes. Either way,
    get honest feedback and refine the goal and plan.

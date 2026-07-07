@@ -2,11 +2,11 @@
 name: rl-init
 description: >-
   Set up (or repair) the life-harness workspace in the current folder — the
-  philosophy/, goals/, and actions/ directories plus the conventions the other
-  rl- skills rely on. Run this once, first, before rl-philosophy, rl-goal,
-  rl-action, rl-pi-review, or rl-human-review. Use when the user runs /rl-init,
-  or asks to initialize, set up, bootstrap, or scaffold life-harness / a life
-  workspace.
+  philosophy/, goals/, actions/, and work/ directories plus the conventions the
+  other rl- skills rely on. Run this once, first, before rl-philosophy, rl-goal,
+  rl-action, rl-work, rl-pi-review, or rl-human-review. Use when the user runs
+  /rl-init, or asks to initialize, set up, bootstrap, or scaffold life-harness /
+  a life workspace.
 metadata:
   loop: life-harness
   step: 0-init
@@ -50,9 +50,18 @@ instead; otherwise use the current working directory without asking for a path.
      actions/
        open/          # one action plan per open goal — same slug as the goal
        closed/        # action plans for closed goals
+     work/
+       open/          # one folder per task delegated to the AI (rl-work)
+       closed/        # finished or abandoned work, with its artifacts
    ```
-   Create any that are missing. Never delete or overwrite files that already
-   exist.
+   Create any that are missing. Drop an empty `.gitkeep` into each leaf directory
+   (`philosophy/`, `goals/open`, `goals/closed`, `actions/open`, `actions/closed`,
+   `work/open`, `work/closed`) so the skeleton survives a fresh `git` clone even
+   while empty. Never delete or overwrite files that already exist.
+
+   `work/` keeps everything the user delegates to the AI — and its artifacts —
+   **inside this same repo**, so this and every future agent inherits full context
+   from one place. See [rl-work](../rl-work/SKILL.md).
 
 3. **Write the browsable conventions file** at `<root>/README.md` (only if it
    does not already exist) using the template in
@@ -69,14 +78,15 @@ instead; otherwise use the current working directory without asking for a path.
    - `/rl-philosophy` — write down what you value (the lens).
    - `/rl-goal` — set a goal with clear, checkable criteria.
    - `/rl-action` — turn a goal into concrete, doable, timed steps.
-   - _Act — on the computer or in the physical world._
+   - _Act — on the computer or in the physical world…_
+   - `/rl-work` — …or delegate computer-side tasks to the AI, kept in `work/`.
    - `/rl-pi-review` — observe computer activity via pi0 and assess.
    - `/rl-human-review` — report real-world outcomes and assess.
 
 ## Conventions the other skills rely on
 
-Establish these here so `rl-philosophy`, `rl-goal`, `rl-action`, `rl-pi-review`,
-and `rl-human-review` can assume them:
+Establish these here so `rl-philosophy`, `rl-goal`, `rl-action`, `rl-work`,
+`rl-pi-review`, and `rl-human-review` can assume them:
 
 - **Locating the workspace.** The workspace is the current working directory (the
   folder life-harness is installed into). If the skill is invoked from a
@@ -97,6 +107,12 @@ and `rl-human-review` can assume them:
   It holds the **plan** (doable, timed, checkable steps toward the goal) and a
   running **log** of observations appended by the review skills. It moves to
   `closed/` alongside its goal.
+- **work/** — one folder per task the user delegates to the AI:
+  `work/open/<slug>/` while active, `work/closed/<slug>/` once finished or
+  abandoned. Each holds a `task.md` brief (what was delegated, which goal it
+  serves, a log of what got done) **and the artifacts produced alongside it**, so
+  the whole repo stays a single, browsable context store for every agent. Written
+  by `rl-work`.
 
 Keep the workspace human-browsable at every step: clear filenames, plain
 Markdown, no hidden state inside it.

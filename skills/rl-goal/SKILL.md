@@ -41,12 +41,12 @@ Take the seed as a starting point and ask for whatever else you need.
 
 3. **Understand the intent — and grill it.** If the seed is a goal, clarify what
    success would really look like and why it matters now. Before shaping it,
-   invoke the `grill-me` skill to interrogate the user on *why this, why now*,
+   invoke the `grilling` skill to interrogate the user on *why this, why now*,
    whether the goal is genuinely theirs, and what "accomplished" would really look
    like; carry what surfaces into the criteria in step 5. Stop grilling once the
    intent and success are clear enough to make checkable. If the seed is empty,
    summarise the open goals and ask which to advance, refine, or retire.
-   (Requires the external `grill-me` skill to be installed; skip this if it is
+   (Requires the external `grilling` skill to be installed; skip this if it is
    unavailable.)
 
 4. **Check it against the philosophy and other goals — honestly.**

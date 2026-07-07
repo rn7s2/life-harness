@@ -57,11 +57,11 @@ start.
    task cuts against a stated principle, flag it before acting.
 
 3. **Pin down "done" — grill the ambiguity out.** Restate the concrete
-   deliverable and the definition of done in a line or two. Invoke the `grill-me`
+   deliverable and the definition of done in a line or two. Invoke the `grilling`
    skill to interrogate the deliverable and the definition of done until nothing
    ambiguous remains, rather than guessing — then confirm the result with the
    user. A task you can't tell is finished can't be reviewed. (Requires the
-   external `grill-me` skill to be installed; skip this if it is unavailable.)
+   external `grilling` skill to be installed; skip this if it is unavailable.)
 
 4. **Open the work record.** One folder per task at `work/open/<slug>/`
    (kebab-case slug), with a `task.md` brief inside using the shape below. Keeping
@@ -83,12 +83,12 @@ start.
    partial. Keep `## Artifacts` current and bump `updated`.
 
 7. **Hand back and link to the loop.** Tell the user what's done, what needs their
-   input, and what remains. If the task served a goal, note the outcome in that
-   goal's action-file `## Log` (or point `/rl-pi-review` / `/rl-human-review` at
-   this work record as evidence) so the review step can judge whether it moved the
-   criteria — the AI's own actions don't show up in pi0, so this record *is* the
-   evidence. When the task is finished or dropped, set its `status` and **move**
-   the whole folder to `work/closed/<slug>/`.
+   input, and what remains. If the task served a goal, make sure this record's
+   `goal:` (and `action:`) field names it, so `/rl-pi-review` and `/rl-human-review`
+   pick this folder up as evidence when they review that goal — the AI's own actions
+   don't show up in pi0, so this record *is* the evidence. Surface the outcome in the
+   goal's action-file `## Log` too if it's worth a line. When the task is finished or
+   dropped, set its `status` and **move** the whole folder to `work/closed/<slug>/`.
 
    `task.md` shape:
 

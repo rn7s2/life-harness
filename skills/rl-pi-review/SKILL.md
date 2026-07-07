@@ -7,8 +7,8 @@ description: >-
   Use when the user runs /rl-pi-review, asks to review progress / how they're
   doing on a goal from their computer activity, or asks for an honest check over a
   time window (e.g. "the side-project goal, this past week"). Reads goals/,
-  actions/, philosophy/; pulls activity data from pi0; writes to actions/ and
-  goals/.
+  actions/, philosophy/, and the AI's own work records under work/; pulls activity
+  data from pi0; writes to actions/ and goals/.
 metadata:
   loop: life-harness
   step: 4-pi-review
@@ -48,8 +48,10 @@ what window) rather than guessing.
    of `philosophy/`. Pull out the goal's **success criteria** and the action
    plan's **timed steps** verbatim — these are what the evidence will be measured
    against — and note, from the action's "How progress is observed" section, which
-   steps are computer-visible. Read the action's `## Log`; the last entry's
-   timestamp is the default start of this review's window.
+   steps are computer-visible, and which of those the user does themselves versus
+   delegates to the AI (the AI's steps are evidenced by `work/`, not pi0). Read the
+   action's `## Log`; the last entry's timestamp is the default start of this
+   review's window.
 
 3. **Fix the time window.** Confirm the exact start and end **to the minute, each
    with its UTC offset and IANA timezone name** — pi0 timestamps are local
@@ -58,9 +60,22 @@ what window) rather than guessing.
    "this past week", state the concrete start/end you'll use. If the user changed
    timezones during the window, note it so the offsets aren't misread.
 
-4. **Gather the evidence from pi0.** pi0 is the intended evidence source — a
-   personal activity store exposed as an MCP server. Use its tools **in this
-   order** (see [references/pi0-usage.md](references/pi0-usage.md) for detail):
+4. **Gather the evidence — from `work/` and from pi0.** Computer-side progress has
+   two sources, and you need both, because they cover different actors:
+
+   **a. `work/` — what the *AI* did on the computer.** Work delegated via
+   `/rl-work` is carried out by the AI, whose activity does **not** appear in pi0,
+   so the record under `work/` is the only evidence of it. Scan `work/open/` and
+   `work/closed/` for any `task.md` whose `goal:` points at this goal (or whose
+   `action:` points at one of its steps) and that falls in the window, and read each
+   one's `## Task`, `## Log`, and `## Artifacts` — and open the artifacts themselves
+   where a step's outcome turns on them. A step delegated to the AI is judged from
+   this record, not from pi0. Read the log honestly but not on faith: a task marked
+   `done` is evidence only if its artifacts actually satisfy the step.
+
+   **b. pi0 — what the *user* did on the computer.** pi0 is a personal activity
+   store exposed as an MCP server. Use its tools **in this order** (see
+   [references/pi0-usage.md](references/pi0-usage.md) for detail):
    1. `apps` for the window → which apps were used, when, how much data each has.
       Always start here to scope the analysis.
    2. `app-guidance` for each app you'll analyse → how to read that app's screen
@@ -73,17 +88,21 @@ what window) rather than guessing.
    - This data is **personal and sensitive** — keystrokes can include passwords.
      Use it only to assess the goal, never surface secrets or credentials in the
      log, and summarise rather than quoting raw keystrokes.
-   - **If pi0 is not connected**, say so plainly. Ask the user for the evidence
-     the action plan named (or another concrete source), or suggest
-     `/rl-human-review` if the steps were done off the computer. Do not fabricate
+   - **If pi0 is not connected**, say so plainly — but the `work/` evidence above
+     still stands for any AI-delegated steps. For the user's own steps, ask for the
+     evidence the action plan named (or another concrete source), or suggest
+     `/rl-human-review` if they were done off the computer. Do not fabricate
      activity, and do not assess from assumption — an honest review needs real
      evidence.
 
 5. **Assess objectively, step and criterion by criterion.** For each timed step in
    the action plan and each success criterion, judge **done / partial / not done**
    (or **met / partial / not met**) and cite the specific evidence for that
-   verdict. Hold steps to their time constraint — a step "Mon–Fri, 2h before noon"
-   that happened twice, late, is partial, and say why. Distinguish what the
+   verdict — matching each step to its source: steps the *user* did on the computer
+   are judged from pi0, steps delegated to the *AI* from their `work/` record and
+   artifacts, and steps done in the physical world belong to `/rl-human-review`.
+   Hold steps to their time constraint — a step "Mon–Fri, 2h before noon" that
+   happened twice, late, is partial, and say why. Distinguish what the
    evidence shows from what it can't show; note gaps instead of filling them with
    optimism. Resist both flattery and undue harshness — report what happened.
 

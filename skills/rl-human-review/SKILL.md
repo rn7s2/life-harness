@@ -6,8 +6,8 @@ description: >-
   honestly, not as a cheerleader — then log what happened into the action file and
   refine. Use when the user runs /rl-human-review, reports what they did / achieved
   / what happened in the physical world, or wants an honest check on a goal whose
-  steps aren't visible on the computer. Reads goals/, actions/, philosophy/; writes
-  to actions/ and goals/.
+  steps aren't visible on the computer. Reads goals/, actions/, philosophy/, and any
+  AI work records under work/ tied to the goal; writes to actions/ and goals/.
 metadata:
   loop: life-harness
   step: 4-human-review
@@ -47,8 +47,12 @@ Take the seed as a starting point and ask for what you need.
    `goals/open/`, **its matching action file** `actions/open/<slug>.md`, and all
    of `philosophy/`. Pull out the goal's **success criteria** and the action
    plan's **timed steps** verbatim, and note which steps the plan expected to be
-   confirmed by human report. Read the action's `## Log`; the last entry's
-   timestamp is the default start of this review's window.
+   confirmed by human report. Also scan `work/open/` and `work/closed/` for any
+   `task.md` whose `goal:` points at this goal: steps the user delegated to the AI
+   are evidenced by that record — not by their own report — so read it, and don't
+   ask the user to account for, or credit them with, work the AI did. Read the
+   action's `## Log`; the last entry's timestamp is the default start of this
+   review's window.
 
 3. **Fix the time window.** Confirm the start and end the report covers **to the
    minute where it matters, each with its UTC offset and IANA timezone name** (e.g.
@@ -65,10 +69,11 @@ Take the seed as a starting point and ask for what you need.
 
 5. **Assess objectively, step and criterion by criterion.** For each timed step in
    the action plan and each success criterion, judge **done / partial / not done**
-   (or **met / partial / not met**) against the reported evidence, and cite what
-   the user reported for each verdict. Hold steps to their time constraint. Be
-   explicit about what the report does and doesn't establish. Resist both flattery
-   and undue harshness — reflect what happened.
+   (or **met / partial / not met**), and cite the evidence for each verdict — the
+   user's report for steps they did themselves, and the `work/` record and its
+   artifacts for any step they delegated to the AI. Hold steps to their time
+   constraint. Be explicit about what the report does and doesn't establish. Resist
+   both flattery and undue harshness — reflect what happened.
 
 6. **Check philosophy, not just the number.** Ask whether the *way* the user acted
    honoured their stated values, even where the outcome landed. Reaching a goal by

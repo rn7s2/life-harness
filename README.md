@@ -16,9 +16,9 @@ workspace**, holding all your philosophy, goals, actions, and work.
 # Claude Code users: create the skills directory first
 mkdir -p .claude/skills
 
-# 1. grill-me — companion skill that pressure-tests your goals,
+# 1. grilling — companion skill that pressure-tests your goals,
 #    plans, and tasks before they're written down
-npx skills add mattpocock/skills --skill=grill-me -y
+npx skills add mattpocock/skills --skill=grilling -y
 
 # 2. life-harness — all skills
 npx skills add rn7s2/life-harness --skill '*' -y
@@ -27,9 +27,11 @@ npx skills add rn7s2/life-harness --skill '*' -y
 Then run `/rl-init` in that folder to scaffold the workspace, and follow
 [the loop](#the-loop-in-skills) from there.
 
-`grill-me` is optional but recommended: `rl-goal`, `rl-action`, and `rl-work` use
+`grilling` is optional but recommended: `rl-goal`, `rl-action`, and `rl-work` use
 it to grill a goal, plan, or task definition before writing it down, and skip that
-step cleanly when it isn't installed. Otherwise the skills are self-contained —
+step cleanly when it isn't installed. (`grilling` is the model-invocable skill; the
+`grill-me` command is only a human-typed alias for it, so the skills call `grilling`
+directly.) Otherwise the skills are self-contained —
 they depend only on the shared Markdown workspace (and, for `rl-pi-review`, a
 connected [`pi0`](https://github.com/rn7s2/pi0) MCP server).
 
@@ -170,7 +172,8 @@ Observes your **computer activity** with pi0 and reviews it against a goal.
 - **Input:** which goal to review and over what time window —
   e.g. `/rl-pi-review the side-project goal, this past week`. Leave it blank and the
   AI reviews open goals with computer-visible steps since their last log entry.
-- **Reads:** `goals/`, `actions/`, `philosophy/`; pulls activity data from pi0
+- **Reads:** `goals/`, `actions/`, `philosophy/`, and the AI's work records under
+  `work/`; pulls activity data from pi0
 - **Writes:** appends a `[pi0]` entry to the goal's action file and updates
   `goals/`
 - The AI assesses progress **objectively** against the action plan's timed steps
@@ -184,7 +187,8 @@ Observes what you did **in the physical world** — the steps pi0 can't see.
 - **Input:** which goal and what happened —
   e.g. `/rl-human-review the fitness goal — ran 3× this week`. Leave it blank and
   the AI asks which goal and what happened.
-- **Reads:** `goals/`, `actions/`, `philosophy/`; evidence comes from your report
+- **Reads:** `goals/`, `actions/`, `philosophy/`, and any `work/` records tied to
+  the goal; evidence comes from your report
 - **Writes:** appends a `[human]` entry to the goal's action file and updates
   `goals/`
 - Same honest mirror as `rl-pi-review`, for actions done off the computer: you

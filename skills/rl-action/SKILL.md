@@ -56,10 +56,10 @@ Take the seed as a starting point and ask for whatever else you need.
      "Draft the landing page Sat morning, ~2h" — not "work on the landing page".
    - **Checkable** — phrased so a later review can mark it done / partial / not
      done from evidence.
-   Before committing the plan, invoke the `grill-me` skill to pressure-test
+   Before committing the plan, invoke the `grilling` skill to pressure-test
    whether the user will *actually* do these steps given their real time and
    energy — surface the ones they're quietly unlikely to keep, and cut or reshape
-   them until the plan is one they can hold to. (Requires the external `grill-me`
+   them until the plan is one they can hold to. (Requires the external `grilling`
    skill to be installed; skip this if it is unavailable.) Be realistic about the
    user's actual time and energy — an honest plan the user can keep beats an
    ambitious one they can't. Surface trade-offs with their other open goals if the

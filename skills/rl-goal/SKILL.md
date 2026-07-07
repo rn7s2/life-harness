@@ -39,15 +39,22 @@ Take the seed as a starting point and ask for whatever else you need.
    live goal files under `goals/open/` (glance at `goals/closed/` too when it
    matters for consistency). You cannot check a goal for consistency without them.
 
-3. **Understand the intent — and grill it.** If the seed is a goal, clarify what
-   success would really look like and why it matters now. Before shaping it,
-   invoke the `grilling` skill to interrogate the user on *why this, why now*,
-   whether the goal is genuinely theirs, and what "accomplished" would really look
-   like; carry what surfaces into the criteria in step 5. Stop grilling once the
-   intent and success are clear enough to make checkable. If the seed is empty,
-   summarise the open goals and ask which to advance, refine, or retire.
-   (Requires the external `grilling` skill to be installed; skip this if it is
-   unavailable.)
+3. **Grill the intent — before you shape anything.** Once the context is loaded,
+   your *first* move on a goal seed is to hand the conversation to grilling — not to
+   start reasoning about the goal yourself. Invoke the **Skill** tool with the skill
+   named `grilling` (this is the `/grilling` skill — the model-invocable one, *not*
+   the human-only `grill-me`). It runs an interactive interrogation: it asks the
+   user, turn by turn, *why this, why now*, whether the goal is genuinely theirs, and
+   what "accomplished" would really look like. **Let it run** — ask its questions,
+   wait for the user's real answers over as many turns as it takes, and don't answer
+   for them or cut it short. When it wraps, **come back to this skill** and carry
+   what surfaced into the philosophy check (step 4) and the criteria (step 5). Do
+   this every time there's a goal to set or refine, before step 4 and before writing
+   anything. Skip **only** if `grilling` is not in your available skills; if you
+   skip, say so out loud ("grilling not installed — I'll interrogate you myself")
+   and run the same interrogation yourself before continuing. If the seed is empty,
+   there's nothing to grill yet — summarise the open goals, ask which to advance,
+   refine, or retire, then grill whatever they pick.
 
 4. **Check it against the philosophy and other goals — honestly.**
    - Does this goal honour the stated principles, or quietly cut against one?

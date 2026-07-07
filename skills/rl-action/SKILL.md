@@ -56,14 +56,20 @@ Take the seed as a starting point and ask for whatever else you need.
      "Draft the landing page Sat morning, ~2h" — not "work on the landing page".
    - **Checkable** — phrased so a later review can mark it done / partial / not
      done from evidence.
-   Before committing the plan, invoke the `grilling` skill to pressure-test
-   whether the user will *actually* do these steps given their real time and
-   energy — surface the ones they're quietly unlikely to keep, and cut or reshape
-   them until the plan is one they can hold to. (Requires the external `grilling`
-   skill to be installed; skip this if it is unavailable.) Be realistic about the
-   user's actual time and energy — an honest plan the user can keep beats an
-   ambitious one they can't. Surface trade-offs with their other open goals if the
-   hours collide.
+   Once you and the user have a **draft** plan — but before you write any of it
+   down — hand it to grilling to pressure-test. Invoke the **Skill** tool with the
+   skill named `grilling` (the `/grilling` skill — the model-invocable one, *not*
+   the human-only `grill-me`). It interrogates the user, step by step, on whether
+   they'll *actually* do each move given their real time and energy. **Let it run**
+   — let the user answer honestly over as many turns as it takes — then **come back
+   here** and cut or reshape the steps it exposed as ones they're quietly unlikely
+   to keep, until the plan is one they can hold to. Do this after the plan is
+   drafted and before step 4 / before writing the action file. Skip **only** if
+   `grilling` is not in your available skills; if you skip, say so out loud
+   ("grilling not installed — I'll pressure-test it myself") and run the same
+   interrogation yourself. Be realistic about the user's actual time and energy — an
+   honest plan the user can keep beats an ambitious one they can't. Surface
+   trade-offs with their other open goals if the hours collide.
 
 4. **Check against the philosophy and the goal.** Don't plan steps that reach the
    goal by cutting against a stated principle, and make sure the steps genuinely

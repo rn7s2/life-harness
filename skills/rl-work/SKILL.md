@@ -56,12 +56,17 @@ start.
    tasks, but don't launder off-lens work into looking goal-serving either. If a
    task cuts against a stated principle, flag it before acting.
 
-3. **Pin down "done" — grill the ambiguity out.** Restate the concrete
-   deliverable and the definition of done in a line or two. Invoke the `grilling`
-   skill to interrogate the deliverable and the definition of done until nothing
-   ambiguous remains, rather than guessing — then confirm the result with the
-   user. A task you can't tell is finished can't be reviewed. (Requires the
-   external `grilling` skill to be installed; skip this if it is unavailable.)
+3. **Pin down "done" — grill the ambiguity out.** Restate the concrete deliverable
+   and the definition of done in a line or two. Then, before you open the work
+   record (step 4), hand it to grilling: invoke the **Skill** tool with the skill
+   named `grilling` (the `/grilling` skill — the model-invocable one, *not* the
+   human-only `grill-me`). It interrogates the deliverable and the definition of
+   done, turn by turn, until nothing ambiguous remains — rather than you guessing.
+   **Let it run** and let the user answer, then **come back here**, confirm the
+   sharpened result with the user, and only then move on. A task you can't tell is
+   finished can't be reviewed. Skip **only** if `grilling` is not in your available
+   skills; if you skip, say so out loud ("grilling not installed — I'll interrogate
+   it myself") and run the same interrogation yourself.
 
 4. **Open the work record.** One folder per task at `work/open/<slug>/`
    (kebab-case slug), with a `task.md` brief inside using the shape below. Keeping

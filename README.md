@@ -31,7 +31,12 @@ Then run `/rl-init` in that folder to scaffold the workspace, and follow
 it to grill a goal, plan, or task definition before writing it down, and skip that
 step cleanly when it isn't installed. (`grilling` is the model-invocable skill; the
 `grill-me` command is only a human-typed alias for it, so the skills call `grilling`
-directly.) Otherwise the skills are self-contained —
+directly.) For the skills to actually invoke it, `grilling` must appear in Claude's
+skill list under exactly that name — after installing, type `/` and confirm you see
+`grilling` (not, say, a plugin-namespaced `some-plugin:grilling`). The command name
+comes from the install **directory**, not the skill's frontmatter `name`; if yours
+differs, update the `grilling` references in `rl-goal`, `rl-action`, and `rl-work` to
+match. Otherwise the skills are self-contained —
 they depend only on the shared Markdown workspace (and, for `rl-pi-review`, a
 connected [`pi0`](https://github.com/rn7s2/pi0) MCP server).
 

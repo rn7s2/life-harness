@@ -105,6 +105,9 @@ goal and/or window, a report of what happened, a pointer to evidence, or
    the goal's `## Notes / history` (rolling older entries to
    `goals/history/<slug>.md`), and **rewrite** — don't append an aside to — any
    criterion this review changes. If all criteria are met and the user agrees, set
-   `status: accomplished` and **move** the goal and action files to `closed/`,
-   repointing the cross-reference lines. Then hand back to `/rl-goal` or `/rl-plan`
-   if refinements were accepted, or return to acting.
+   `status: accomplished` and run the **full close sweep** (rl-init → *Closing a
+   goal*), not just the goal and action files: flip the action file (and any open
+   `work/` task serving this goal) to `done`, move goal + action + those work
+   folders to `closed/`, and repoint **every** cross-reference (`actions:`, `goal:`,
+   work `goal:`/`action:`) from `open/` to `closed/`. Then hand back to `/rl-goal`
+   or `/rl-plan` if refinements were accepted, or return to acting.

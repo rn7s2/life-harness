@@ -38,9 +38,11 @@ work/
 
 Each goal has exactly **one** action file sharing its slug
 (`goals/open/side-project.md` ↔ `actions/open/side-project.md`). When a goal is
-accomplished or abandoned, its goal file **and** action file move to `closed/`.
-`work/` holds tasks you delegate to the AI — the brief *and* every artifact stay
-inside this repo so any agent reads the whole history from one place.
+accomplished or abandoned, its goal file, its action file, **and** any `work/` task
+that served it all move to `closed/` together — statuses flipped, cross-references
+repointed, so nothing is left pointing into `open/`. `work/` holds tasks you
+delegate to the AI — the brief *and* every artifact stay inside this repo so any
+agent reads the whole history from one place.
 
 ## File conventions
 

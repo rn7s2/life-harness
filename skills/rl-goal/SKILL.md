@@ -66,10 +66,12 @@ goals and ask what to pursue. Ask for whatever else you need.
    history`, keep the **last ~3 entries**; move older ones verbatim to
    `goals/history/<slug>.md` (append-only, not auto-loaded) with a one-line
    pointer. Cite philosophy only where load-bearing. When the goal becomes
-   **accomplished** or **abandoned**, set `status` and **move** the file to
-   `goals/closed/<slug>.md`; move its action file `actions/open/<slug>.md →
-   actions/closed/<slug>.md` too, and repoint the cross-reference lines in both.
-   Shape:
+   **accomplished** or **abandoned**, run the **full close sweep** (rl-init →
+   *Closing a goal*), not just the two files: set this goal's `status` and move it
+   to `goals/closed/`; flip its action file (and any open `work/` task serving it)
+   to `done`/`abandoned` and move those to `closed/` too; then repoint **every**
+   cross-reference from `open/` to `closed/` — the goal's `actions:` line, the
+   action's `goal:` line, and each work task's `goal:`/`action:`. Shape:
 
    ```markdown
    # <Goal title>

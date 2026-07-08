@@ -87,13 +87,15 @@ filesystem hierarchy so both you and the AI can browse it:
 Each goal has exactly **one** action file sharing its slug
 (`goals/open/side-project.md` ↔ `actions/open/side-project.md`): the plan of
 concrete, doable, timed steps, plus a running log of what the reviews observed.
-When a goal is accomplished or abandoned, its goal file and action file move to
-`closed/`.
+When a goal is accomplished or abandoned, its goal file, its action file, and any
+work that served it all move to `closed/` together — statuses flipped and every
+cross-reference repointed, so nothing is left pointing into `open/`.
 
 `work/` is where tasks you delegate to the AI get carried out — the brief and
 every artifact live **in the same repo**, one folder per task, so that this and
 every future agent inherits the full context instead of digging through scratch
-space. When a task is finished or dropped, its folder moves to `closed/`.
+space. When a task is finished or dropped, its folder moves to `closed/` (and if
+its goal closes first, the goal's close sweep takes it along).
 
 Plain Markdown is the only source of truth. No database, nothing hidden — you can
 read, edit, and version-control the whole thing by hand.

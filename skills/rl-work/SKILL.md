@@ -81,7 +81,10 @@ take on. Pin down what "done" means before starting.
    evidence. Surface the outcome in the goal's action-file `## Log` if worth a line
    — **one short entry**, rolling older entries past ~3 to `actions/history/<slug>.md`.
    When finished or dropped, set `status` and **move** the folder to
-   `work/closed/<slug>/`.
+   `work/closed/<slug>/`, keeping its `goal:`/`action:` pointed at wherever those
+   files now live (`open/` or `closed/`). If the goal closes while this task is
+   still open, the goal's close sweep moves and repoints this record too (rl-init →
+   *Closing a goal*).
 
    `task.md` shape:
 

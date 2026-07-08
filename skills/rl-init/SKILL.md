@@ -80,6 +80,23 @@ Establish these here so the other skills can assume them:
   `work/closed/<slug>/`, holding a `task.md` brief **and its artifacts**. Written
   by `rl-work`; the `task.md` `## Log` rolls overflow to `task.log.md` beside it
   (append-only, not auto-loaded).
+- **Closing a goal (accomplished or abandoned) — one sweep over all three artifact
+  types; leave nothing dangling in `open/`.** When a review shows a goal is reached,
+  or the user drops it, do the *whole* sweep, not just the goal file:
+  1. **Goal** — set `status: accomplished | abandoned`; move `goals/open/<slug>.md`
+     → `goals/closed/<slug>.md`.
+  2. **Action** — set the action file's own `status: done | abandoned`
+     (`accomplished` maps to **done**); move `actions/open/<slug>.md` →
+     `actions/closed/<slug>.md`.
+  3. **Work** — for each `work/open/<task>/task.md` whose `goal:`/`action:` names
+     this goal, set `status: done | abandoned` and move the folder to
+     `work/closed/<task>/`. Keep one open only if the user wants that work to
+     outlive the goal — then say so.
+  4. **Repoint every cross-reference from `open/` to `closed/`:** the goal's
+     `actions:` line, the action's `goal:` line, and each moved task's
+     `goal:`/`action:` lines. No live link may point into `open/` at a file now in
+     `closed/`. `/rl-review` (criteria met) and `/rl-goal` (abandon) run this whole
+     sweep.
 - **Context economy — these files reload into context every loop, so keep them
   lean.** Live sections (`target`, criteria, plan steps, the work brief) state
   only the *current* truth: on refine, rewrite them clean rather than accreting

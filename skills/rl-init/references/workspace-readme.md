@@ -1,11 +1,10 @@
 # life-harness workspace
 
 This folder is a **life-harness workspace**: it runs your life the way a ReAct
-agent runs a task — set a goal, plan concrete actions, act in real life, observe
-the real evidence, let the AI push back, and refine. It is plain Markdown, so you
-can read, edit, and version-control all of it by hand. There is no database and
-nothing hidden. This folder *is* the workspace — the skills read and write right
-here, not in some other location.
+agent runs a task — set a goal, plan concrete actions, act, observe the real
+evidence, let the AI push back, and refine. It is plain Markdown, so you can read,
+edit, and version-control all of it by hand. This folder *is* the workspace — the
+skills read and write right here.
 
 ```text
 philosophy ── the lens for every step below (does each action still honour it?)
@@ -17,8 +16,8 @@ set goal ──► plan actions ──► act ──► observe ──► reason
 ```
 
 Philosophy is not a step — it sits over the whole loop. The AI's job is not to
-cheer you on. It holds your actions against your own stated goals and philosophy
-and tells you where they diverge.
+cheer you on. It holds your actions against your own goals and philosophy and
+tells you where they diverge.
 
 ## Layout
 
@@ -27,109 +26,97 @@ philosophy/       principles and values — the lens for every decision
 goals/
   open/           one file per live goal, each with checkable success criteria
   closed/         goals that are accomplished or abandoned
+  history/         archived overflow of goals' Notes/history — not auto-loaded
 actions/
   open/           one action plan per open goal — SAME slug as the goal
   closed/         action plans for closed goals
+  history/         archived overflow of actions' Log — not auto-loaded
 work/
   open/           one folder per task delegated to the AI — brief + artifacts
   closed/         finished or abandoned work, kept with its artifacts
 ```
 
 Each goal has exactly **one** action file sharing its slug
-(`goals/open/side-project.md` ↔ `actions/open/side-project.md`). Live work lives
-under `open/`; when a goal is accomplished or abandoned, its goal file **and** its
-action file move to `closed/`.
-
-`work/` is where tasks you delegate to the AI get done — the brief *and* every
-artifact stay **inside this repo**, so both you and any future agent read the
-whole history from one place. Nothing is scattered in scratch folders.
+(`goals/open/side-project.md` ↔ `actions/open/side-project.md`). When a goal is
+accomplished or abandoned, its goal file **and** action file move to `closed/`.
+`work/` holds tasks you delegate to the AI — the brief *and* every artifact stay
+inside this repo so any agent reads the whole history from one place.
 
 ## File conventions
 
 **Timestamps.** Record moments (a goal's `created`, history entries, an action's
-`updated`, log entries, and review window endpoints) **to the minute, with a UTC
-offset and the IANA timezone name** — like `2026-07-06 14:30 +08:00 (Asia/Shanghai)`.
-Record both: the offset pins the instant, and the zone name keeps every record
-unambiguous across DST and even if you move across timezones.
+`updated`, log entries, review windows) to the minute with a UTC offset and IANA
+zone name — like `2026-07-06 14:30 +08:00 (Asia/Shanghai)`.
+
+**Context economy.** These files reload into context on every loop, so keep them
+lean. Live sections state only the *current* truth (on refine, rewrite them clean
+— don't accrete "(re-baselined X→Y)" asides). Budget: `target`/each step = 1 line,
+each criterion = 1–2, each history/log entry = a heading + ≤5 one-sentence
+bullets. Cite philosophy only where load-bearing. `## Notes / history` and `## Log`
+keep the **last ~3 entries**; move older ones verbatim to `goals/history/<slug>.md`
+/ `actions/history/<slug>.md` (append-only, not auto-loaded) with a one-line pointer.
 
 ### philosophy/
-One file per principle or theme, kebab-case (`mornings.md`, `deep-work.md`).
-Each file states the principle, why it matters to you, and how to decide with it.
+One file per principle/theme, kebab-case (`mornings.md`, `deep-work.md`) — the
+principle, why it matters to you, and how to decide with it.
 
 ### goals/
-One file per goal, `goals/open/<slug>.md` while live (kebab-case slug, e.g.
-`goals/open/side-project.md`), moved to `goals/closed/<slug>.md` when accomplished
-or abandoned. Refining edits the file in place. Suggested shape:
+`goals/open/<slug>.md` while live, moved to `goals/closed/<slug>.md` when
+accomplished/abandoned. Refining edits in place. Shape:
 
 ```markdown
 # <Goal title>
 
 - status: active                    # active | accomplished | abandoned
-- created: YYYY-MM-DD HH:MM ±HH:MM (Zone/Name)   # to the minute, offset + timezone name
-- target: <date or cadence, if any>
+- created: YYYY-MM-DD HH:MM ±HH:MM (Zone/Name)
+- target: <one line — current truth only>
 - actions: actions/open/<slug>.md
 
 ## Why this goal
 How it follows from your philosophy and fits your other goals.
 
 ## Success criteria
-- [ ] Concrete, checkable criterion
-- [ ] Another concrete, checkable criterion
+- [ ] Concrete, checkable criterion (what counts / how observed, in a line)
+- [ ] Another
 
 ## Notes / history
-Refinements over time, each with a timestamp (to the minute, offset + timezone name).
+Last ~3 refinements, each a timestamped one-liner. Older → goals/history/<slug>.md.
 ```
 
-Every goal must be consistent with your philosophy and your other goals, and
-must carry **clear, checkable criteria** for what "accomplished" means.
-
 ### actions/
-One action file per goal, sharing the goal's slug: `actions/open/<slug>.md`
-(moved to `actions/closed/<slug>.md` when the goal closes). It holds the **plan**
-— doable, timed steps toward the goal — and a running **log** of observations that
-the review skills append. Suggested shape:
+One per goal, same slug: `actions/open/<slug>.md`. Holds the **Plan** (doable,
+timed, checkable steps — only the plan in force) and the **Log** reviews append to.
+Shape:
 
 ```markdown
 # Actions — <goal title>
 
 - goal: goals/open/<slug>.md
 - status: active                    # active | done | abandoned
-- created: YYYY-MM-DD HH:MM ±HH:MM (Zone/Name)   # to the minute, offset + timezone name
+- created: YYYY-MM-DD HH:MM ±HH:MM (Zone/Name)
 - updated: YYYY-MM-DD HH:MM ±HH:MM (Zone/Name)
 
 ## Plan
-Doable, timed steps toward the goal — each with a time constraint and checkable.
 - [ ] Step — what exactly / when / how long / by when
 - [ ] Step — ...
 
 ## How progress is observed
-For each step, what evidence would show it happened and how you'll supply it at
-review time (a report, a file/export, a screenshot, a link).
+Per step, what evidence would show it happened and how you'll supply it at review.
 
 ## Log
-YYYY-MM-DD HH:MM ±HH:MM (Zone/Name) — [review] — source: <how you provided the
-evidence> — what the evidence showed, which steps done/partial/not, adjustments.
+Last ~3 entries; older → actions/history/<slug>.md.
+YYYY-MM-DD HH:MM ±HH:MM (Zone/Name) — [review] — source: <evidence> — what it showed.
 ```
 
-The **log** is where reviews land: `/rl-review` appends `[review]` entries noting
-what evidence you provided (a report, an export, a screenshot, a log) and what it
-showed. There is no separate reviews folder — the action file is the single record
-of both the plan and how it actually went.
-
 ### work/
-One folder per task you delegate to the AI, sharing a kebab-case slug:
-`work/open/<slug>/` while active, moved to `work/closed/<slug>/` when finished or
-abandoned. Inside each folder is a `task.md` brief — what was delegated, which
-goal it serves, and a running log of what got done — **plus the artifacts the AI
-produced** (code, drafts, research notes, data). Keeping the brief and its outputs
-together, in the repo, is the point: every agent inherits the full context.
-Suggested `task.md` shape:
+`work/open/<slug>/` then `work/closed/<slug>/`, holding a `task.md` brief **plus
+the artifacts the AI produced**. Shape:
 
 ```markdown
 # Work — <task title>
 
 - status: active                 # active | done | abandoned
-- created: YYYY-MM-DD HH:MM ±HH:MM (Zone/Name)   # to the minute, offset + timezone name
+- created: YYYY-MM-DD HH:MM ±HH:MM (Zone/Name)
 - updated: YYYY-MM-DD HH:MM ±HH:MM (Zone/Name)
 - goal: goals/open/<slug>.md      # the goal this serves — or "none (ad-hoc)"
 - action: actions/open/<slug>.md  # the step it advances, if any
@@ -138,25 +125,22 @@ Suggested `task.md` shape:
 What was delegated, and the concrete deliverable / definition of done.
 
 ## Artifacts
-Files produced in this folder (and any real-project paths touched), one line each.
+Files produced here (and any real-project paths touched), one line each.
 
 ## Log
 YYYY-MM-DD HH:MM ±HH:MM (Zone/Name) — what got done, done/partial/blocked, decisions.
 ```
 
-`/rl-work` writes here. Because the AI's own work isn't part of the activity you
-report on, this record is the evidence a later `/rl-review` reads to judge whether
-the work moved the goal.
+Because the AI's own work isn't part of the activity you report on, this record is
+the evidence a later `/rl-review` reads to judge whether the work moved the goal.
 
 ## Managing the workspace with skills
-
-The six `rl-` skills all operate on this workspace:
 
 1. `/rl-init` — prepare the workspace (this file).
 2. `/rl-philosophy` — write down what you value.
 3. `/rl-goal` — set a goal with clear criteria.
-4. `/rl-plan` — turn the goal into concrete, doable, timed steps.
+4. `/rl-plan` — turn it into concrete, doable, timed steps.
 5. _Act — on the computer or in the physical world…_
 6. `/rl-work` — …or delegate computer-side tasks to the AI; done in `work/`.
 7. `/rl-review` — observe what you did (from evidence you provide); assess and refine.
-8. Return to step 5 and keep looping until the goal is reached.
+8. Loop from step 5 until the goal is reached.

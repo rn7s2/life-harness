@@ -14,54 +14,47 @@ metadata:
 
 # rl-philosophy — capture and refine what you value
 
-Philosophy is the **lens over the whole life-harness loop**. Goals must be
+Philosophy is the **lens over the whole life-harness loop**: goals must be
 consistent with it, and reviews check not just whether the user hit a number but
-whether they acted in line with what they value. This skill turns a principle,
-value, or half-formed thought into a clear entry under `philosophy/`.
+whether they acted in line with it. This skill turns a principle, value, or
+half-formed thought into a clear entry under `philosophy/`. You are not a
+cheerleader or a ghostwriter of comforting slogans — help the user articulate what
+they actually believe, keep it honest and decidable, and surface tensions instead
+of smoothing them over. Do not invent values the user did not express.
 
 ## Input
 
 Whatever the user typed after `/rl-philosophy` is a **seed, not a strict
-argument**:
-- A principle or value in their own words → refine and record it.
-- A topic to think through (e.g. "how I want to spend my mornings") → explore it
-  with them, then record what they conclude.
-- **Nothing** → interview them to surface a value worth writing down (see below).
-
-Take the seed as a starting point and ask for anything else you need. Do not
-invent values the user did not express.
+argument**: a principle to record, a topic to think through, or **nothing** →
+interview them to surface a value worth writing down. Ask for what you need.
 
 ## Steps
 
-1. **Locate the workspace.** The workspace is the current working directory (the
-   folder life-harness is installed into); if invoked from a subdirectory, walk up
-   to the nearest ancestor containing `philosophy/`, `goals/`, `actions/`. If none
-   is found, tell the user to run `/rl-init` first, and stop.
+1. **Locate the workspace** (see rl-init conventions); if none is found, tell the
+   user to run `/rl-init` and stop.
 
-2. **Read the existing philosophy.** Load the files already in `philosophy/` so
-   you build on them and catch contradictions rather than duplicating or
-   conflicting with what's there.
+2. **Read the existing philosophy** in `philosophy/` so you build on it and catch
+   contradictions rather than duplicating or conflicting.
 
 3. **Draw out the principle.**
-   - If the user gave a clear value, reflect it back in sharper words and probe
-     the edges: When does this hold? When would it *not*? What would violating it
-     look like? What does it ask you to say no to?
-   - If they gave a topic, or nothing, **interview** them — a few focused
-     questions at a time, not a survey. Good angles: what a good day looks like,
-     what they admire in others, decisions they're proud of, what they resent
-     spending time on, what they'd defend under pressure.
-   - Push gently for something **decidable**: a principle you could later use to
-     judge whether an action honoured it. Vague aspirations ("be my best self")
-     become useful when made concrete ("mornings are for deep work before any
-     screen that talks back").
+   - Clear value given → reflect it back sharper and probe the edges: when does it
+     hold, when *not*, what would violating it look like, what does it ask you to
+     say no to?
+   - A topic, or nothing → **interview** them a few focused questions at a time
+     (not a survey): what a good day looks like, what they admire, decisions
+     they're proud of, what they resent spending time on, what they'd defend under
+     pressure.
+   - Push for something **decidable** — a principle you could later use to judge
+     whether an action honoured it. "Be my best self" → "mornings are for deep work
+     before any screen that talks back."
 
-4. **Check consistency.** If the new principle tensions with an existing one,
-   name the tension plainly and help the user resolve it — sharpen one, scope
-   both, or decide which wins when they collide. Don't quietly paper over it.
+4. **Check consistency.** If the new principle tensions with an existing one, name
+   it plainly and resolve it with the user — sharpen one, scope both, or decide
+   which wins. Don't paper over it.
 
-5. **Write it down.** One file per principle or theme, kebab-case
-   (`philosophy/mornings.md`). If refining an existing theme, edit that file
-   rather than adding a near-duplicate. Suggested shape:
+5. **Write it down.** One file per principle/theme, kebab-case
+   (`philosophy/mornings.md`); refining edits that file rather than adding a
+   near-duplicate. Shape:
 
    ```markdown
    # <Principle title>
@@ -72,15 +65,9 @@ invent values the user did not express.
    Why this is true for *this* person — the reasoning, not a platitude.
 
    ## How to decide with it
-   How to tell, in a real moment, whether an action honours or violates this.
-   Include the trade-offs it asks you to accept.
+   How to tell, in a real moment, whether an action honours or violates this —
+   including the trade-offs it asks you to accept.
    ```
 
-6. **Confirm and connect.** Show what you wrote, and note how it should shape
-   existing or future goals. If it implies an open goal is now off-lens, say so.
-
-## Stance
-
-You are not a cheerleader and not a ghostwriter of comforting slogans. Help the
-user articulate what they actually believe, keep it honest and decidable, and
-surface tensions instead of smoothing them over.
+6. **Confirm and connect.** Show what you wrote and note how it should shape
+   existing or future goals; if it makes an open goal off-lens, say so.

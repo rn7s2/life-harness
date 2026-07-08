@@ -4,9 +4,8 @@ description: >-
   Set up (or repair) the life-harness workspace in the current folder — the
   philosophy/, goals/, actions/, and work/ directories plus the conventions the
   other rl- skills rely on. Run this once, first, before rl-philosophy, rl-goal,
-  rl-plan, rl-work, rl-pi-review, or rl-human-review. Use when the user runs
-  /rl-init, or asks to initialize, set up, bootstrap, or scaffold life-harness /
-  a life workspace.
+  rl-plan, rl-work, or rl-review. Use when the user runs /rl-init, or asks to
+  initialize, set up, bootstrap, or scaffold life-harness / a life workspace.
 metadata:
   loop: life-harness
   step: 0-init
@@ -80,13 +79,12 @@ instead; otherwise use the current working directory without asking for a path.
    - `/rl-plan` — turn a goal into concrete, doable, timed steps.
    - _Act — on the computer or in the physical world…_
    - `/rl-work` — …or delegate computer-side tasks to the AI, kept in `work/`.
-   - `/rl-pi-review` — observe computer activity via pi0 and assess.
-   - `/rl-human-review` — report real-world outcomes and assess.
+   - `/rl-review` — observe what you did (from evidence you provide) and assess.
 
 ## Conventions the other skills rely on
 
-Establish these here so `rl-philosophy`, `rl-goal`, `rl-plan`, `rl-work`,
-`rl-pi-review`, and `rl-human-review` can assume them:
+Establish these here so `rl-philosophy`, `rl-goal`, `rl-plan`, `rl-work`, and
+`rl-review` can assume them:
 
 - **Locating the workspace.** The workspace is the current working directory (the
   folder life-harness is installed into). If the skill is invoked from a
@@ -105,8 +103,8 @@ Establish these here so `rl-philosophy`, `rl-goal`, `rl-plan`, `rl-work`,
 - **actions/** — one action file per goal, sharing the goal's slug:
   `actions/open/<slug>.md` (and `actions/closed/<slug>.md` when the goal closes).
   It holds the **plan** (doable, timed, checkable steps toward the goal) and a
-  running **log** of observations appended by the review skills. It moves to
-  `closed/` alongside its goal.
+  running **log** of observations appended by `rl-review`. It moves to `closed/`
+  alongside its goal.
 - **work/** — one folder per task the user delegates to the AI:
   `work/open/<slug>/` while active, `work/closed/<slug>/` once finished or
   abandoned. Each holds a `task.md` brief (what was delegated, which goal it

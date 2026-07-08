@@ -72,8 +72,9 @@ Take the seed as a starting point and ask for whatever else you need.
      day, on ≥5 days each week", not "more focus").
    - Define what counts and what doesn't (what is a "focused hour"? does
      meeting-heavy time count?).
-   - Note how progress will be observed — e.g. from pi0 activity data in
-     `/rl-pi-review`, or another source the user names.
+   - Note how progress will be observed — what evidence a later `/rl-review`
+     could check it against (a report, an export, a screenshot, a log, or another
+     source the user names).
    - If a goal can't be made checkable, that's a signal: reshape it until it can,
      or record honestly that it's a direction rather than a goal.
 
@@ -118,7 +119,7 @@ Take the seed as a starting point and ask for whatever else you need.
 
 7. **Confirm and point onward.** Show the file, restate the criteria in one line,
    and point the user to `/rl-plan` to turn the goal into concrete, doable, timed
-   steps — then `/rl-pi-review` or `/rl-human-review` once they've acted for a while.
+   steps — then `/rl-review` once they've acted for a while.
 
 ## Stance
 

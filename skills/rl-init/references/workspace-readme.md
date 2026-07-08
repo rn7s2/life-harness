@@ -11,8 +11,8 @@ here, not in some other location.
 philosophy ── the lens for every step below (does each action still honour it?)
 
 set goal ──► plan actions ──► act ──► observe ──► reason ──► refine
-  (goal)       (action)     (real)  (pi0 / human)       (goals + actions)
-             ▲                                                  │
+  (goal)       (action)     (real)  (evidence you    (goals + actions)
+             ▲                        provide)               │
              └──────────────── loop until reached ─────────────┘
 ```
 
@@ -103,17 +103,18 @@ Doable, timed steps toward the goal — each with a time constraint and checkabl
 - [ ] Step — ...
 
 ## How progress is observed
-Which steps are visible in pi0 computer activity; which need a human report.
+For each step, what evidence would show it happened and how you'll supply it at
+review time (a report, a file/export, a screenshot, a link).
 
 ## Log
-YYYY-MM-DD HH:MM ±HH:MM (Zone/Name) — [pi0|human] — what the evidence showed,
-which steps done/partial/not, adjustments made.
+YYYY-MM-DD HH:MM ±HH:MM (Zone/Name) — [review] — source: <how you provided the
+evidence> — what the evidence showed, which steps done/partial/not, adjustments.
 ```
 
-The **log** is where reviews land: `/rl-pi-review` appends `[pi0]` entries from
-computer activity, `/rl-human-review` appends `[human]` entries from what you
-report about the physical world. There is no separate reviews folder — the action
-file is the single record of both the plan and how it actually went.
+The **log** is where reviews land: `/rl-review` appends `[review]` entries noting
+what evidence you provided (a report, an export, a screenshot, a log) and what it
+showed. There is no separate reviews folder — the action file is the single record
+of both the plan and how it actually went.
 
 ### work/
 One folder per task you delegate to the AI, sharing a kebab-case slug:
@@ -143,13 +144,13 @@ Files produced in this folder (and any real-project paths touched), one line eac
 YYYY-MM-DD HH:MM ±HH:MM (Zone/Name) — what got done, done/partial/blocked, decisions.
 ```
 
-`/rl-work` writes here. Because the AI's own actions don't show up in pi0, this
-record is the evidence a later `/rl-pi-review` or `/rl-human-review` reads to judge
-whether the work moved the goal.
+`/rl-work` writes here. Because the AI's own work isn't part of the activity you
+report on, this record is the evidence a later `/rl-review` reads to judge whether
+the work moved the goal.
 
 ## Managing the workspace with skills
 
-The seven `rl-` skills all operate on this workspace:
+The six `rl-` skills all operate on this workspace:
 
 1. `/rl-init` — prepare the workspace (this file).
 2. `/rl-philosophy` — write down what you value.
@@ -157,6 +158,5 @@ The seven `rl-` skills all operate on this workspace:
 4. `/rl-plan` — turn the goal into concrete, doable, timed steps.
 5. _Act — on the computer or in the physical world…_
 6. `/rl-work` — …or delegate computer-side tasks to the AI; done in `work/`.
-7. `/rl-pi-review` — observe computer activity via pi0; assess and refine.
-8. `/rl-human-review` — report real-world outcomes; assess and refine.
-9. Return to step 5 and keep looping until the goal is reached.
+7. `/rl-review` — observe what you did (from evidence you provide); assess and refine.
+8. Return to step 5 and keep looping until the goal is reached.

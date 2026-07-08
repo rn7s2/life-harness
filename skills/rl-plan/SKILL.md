@@ -6,7 +6,7 @@ description: >-
   the user runs /rl-plan, asks how to actually reach a goal, wants to plan or
   break down a goal into steps, or names an existing action plan to refine. Reads
   goals/ and philosophy/; writes one action file per goal to actions/open/. The
-  plan is later observed against by rl-pi-review and rl-human-review.
+  plan is later observed against by rl-review.
 metadata:
   loop: life-harness
   step: 3-plan
@@ -18,8 +18,8 @@ A goal states *what* "accomplished" means; an **action plan** states *how* the
 user will get there — as steps that are **doable** and **timed** (each with a
 clear time constraint and a checkable outcome). This is the step where the AI and
 the human agree on something specific to actually do, and put it on record. That
-record is not just a to-do list: `rl-pi-review` and `rl-human-review` read it back
-and log, against each step, what the evidence shows actually happened.
+record is not just a to-do list: `rl-review` reads it back and logs, against each
+step, what the evidence shows actually happened.
 
 There is **one action file per goal**, sharing the goal's slug:
 `goals/open/<slug>.md` ↔ `actions/open/<slug>.md`.
@@ -78,11 +78,12 @@ Take the seed as a starting point and ask for whatever else you need.
    so — that's a signal to reshape the goal (hand back to `/rl-goal`), not to write
    a plan you don't believe.
 
-5. **Mark how each step will be observed.** For each step, note whether progress
-   will show up in **pi0 computer activity** (e.g. time in the editor, on the repo)
-   — reviewed later by `/rl-pi-review` — or whether it happens in the physical
-   world and needs a **human report** via `/rl-human-review` (e.g. a workout, a
-   conversation). This tells the review skills what to look for.
+5. **Mark how each step will be observed.** For each step, note **what evidence
+   would show it happened** and how the user expects to supply it to a later
+   `/rl-review` — a report in their words (e.g. a workout, a conversation), a file
+   or export (a screen-time report, a git log, a tracker's CSV), a screenshot, or a
+   link. This tells the review what to look for and reminds the user to keep or
+   capture that evidence.
 
 6. **Write the action file.** One file per goal at `actions/open/<slug>.md`, using
    the **same slug as the goal**. When refining, edit in place and bump `updated`.
@@ -105,19 +106,20 @@ Take the seed as a starting point and ask for whatever else you need.
    - [ ] Step — ...
 
    ## How progress is observed
-   Which steps are visible in pi0 computer activity; which need a human report.
+   For each step, what evidence would show it happened and how the user will supply
+   it at review time (a report, a file/export, a screenshot, a link).
 
    ## Log
-   YYYY-MM-DD HH:MM ±HH:MM (Zone/Name) — [pi0|human] — what the evidence showed,
-   which steps done/partial/not, adjustments made.
+   YYYY-MM-DD HH:MM ±HH:MM (Zone/Name) — [review] — source: <how the evidence was
+   provided> — what the evidence showed, which steps done/partial/not, adjustments.
    ```
 
    Leave the `## Log` heading in place (empty) for the review skills to append to.
    Make sure the goal file's `actions:` line points back at this file.
 
 7. **Confirm.** Show the plan, restate in one line what the user is committing to
-   do and by when, and point them to `/rl-pi-review` (for computer-visible steps)
-   or `/rl-human-review` (for real-world steps) once they've acted for a while.
+   do and by when, and point them to `/rl-review` once they've acted for a while —
+   whichever way they'll show what they did.
 
 ## Stance
 

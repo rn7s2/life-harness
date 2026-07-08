@@ -36,16 +36,14 @@ skill list under exactly that name — after installing, type `/` and confirm yo
 `grilling` (not, say, a plugin-namespaced `some-plugin:grilling`). The command name
 comes from the install **directory**, not the skill's frontmatter `name`; if yours
 differs, update the `grilling` references in `rl-goal`, `rl-plan`, and `rl-work` to
-match. Otherwise the skills are self-contained —
-they depend only on the shared Markdown workspace (and, for `rl-pi-review`, a
-connected [`pi0`](https://github.com/rn7s2/pi0) MCP server).
+match. Otherwise the skills are self-contained — they depend only on the shared
+Markdown workspace.
 
 ## Background
 
-I built [pi0](https://github.com/rn7s2/pi0) to capture what actually happens on my
-machine (frontmost app, OCR'd screenshots, keystrokes). **life-harness** is the layer
-on top: it turns that raw evidence — plus my own philosophy and goals — into a loop
-that helps me optimise and train myself with the help of AI agents.
+**life-harness** turns your own philosophy, goals, and the evidence of what you
+actually did into a loop that helps you optimise and train yourself with the help
+of AI agents.
 
 The idea is to run life the way [ReAct](https://react-lm.github.io/) runs an agent:
 
@@ -53,8 +51,8 @@ The idea is to run life the way [ReAct](https://react-lm.github.io/) runs an age
 philosophy ── the lens for every step below (does each action still honour it?)
 
 set goal ──► plan actions ──► act ──────────► observe ──► reason ──► refine
-             ▲             (you, or the AI    (pi0 / human)            │
-             │              via rl-work)                              │
+             ▲             (you, or the AI    (evidence you           │
+             │              via rl-work)       provide)               │
              └────────────────────── loop until reached ─────────────┘
 ```
 
@@ -102,7 +100,7 @@ read, edit, and version-control the whole thing by hand.
 
 ## Skills
 
-All seven skills operate on the same workspace, so they compose into one loop. Each
+All six skills operate on the same workspace, so they compose into one loop. Each
 runs as a slash command. Whatever you type after it is a **seed, not a strict
 argument** — the AI takes it as a starting point and asks for anything else it needs.
 
@@ -150,7 +148,7 @@ Turns a goal into concrete, doable, timed steps you and the AI agree on.
 - **Writes:** `actions/open/<slug>.md` (one per goal, same slug)
 - Each step must be **doable** and **timed** (a real action with a time
   constraint), and checkable — so a later review can tell whether it happened. The
-  action file is the material the review skills observe against.
+  action file is the material `rl-review` observes against.
 
 ### `rl-work`
 
@@ -168,37 +166,27 @@ keeps the brief **and every artifact** in the repo under `work/`.
 - Not a blind executor: it flags tasks that serve no goal or cut against a
   principle, records what got done honestly (partial as partial, blocked as
   blocked), and leaves the record a later review reads as evidence — since the
-  AI's own work doesn't show up in pi0.
+  AI's own work isn't part of the activity you report on.
 
-### `rl-pi-review`
+### `rl-review`
 
-Observes your **computer activity** with pi0 and reviews it against a goal.
+Observes what you actually did — **from whatever evidence you provide** — and
+reviews it against a goal. Tell the AI what happened, or point it at a file, an
+export, a screenshot, a paste, or a link; it reads what you give it. Works the same
+whether the steps happened on the computer or in the physical world — the source is
+your choice, not a fixed pipeline.
 
-- **Input:** which goal to review and over what time window —
-  e.g. `/rl-pi-review the side-project goal, this past week`. Leave it blank and the
-  AI reviews open goals with computer-visible steps since their last log entry.
+- **Input:** which goal, over what window, and how you'll show what you did —
+  e.g. `/rl-review the fitness goal — ran 3× this week` or `/rl-review the
+side-project goal, this past week, see ./exports/screentime.csv`. Leave it blank
+  and the AI asks which goal, what window, and how you'll provide the evidence.
 - **Reads:** `goals/`, `actions/`, `philosophy/`, and the AI's work records under
-  `work/`; pulls activity data from pi0
-- **Writes:** appends a `[pi0]` entry to the goal's action file and updates
-  `goals/`
+  `work/`; the activity evidence comes from the source you name
+- **Writes:** appends a `[review]` entry (noting the evidence source) to the goal's
+  action file and updates `goals/`
 - The AI assesses progress **objectively** against the action plan's timed steps
   and the goal's criteria, logs what the evidence shows, and proposes refinements
-  when the evidence calls for it.
-
-### `rl-human-review`
-
-Observes what you did **in the physical world** — the steps pi0 can't see.
-
-- **Input:** which goal and what happened —
-  e.g. `/rl-human-review the fitness goal — ran 3× this week`. Leave it blank and
-  the AI asks which goal and what happened.
-- **Reads:** `goals/`, `actions/`, `philosophy/`, and any `work/` records tied to
-  the goal; evidence comes from your report
-- **Writes:** appends a `[human]` entry to the goal's action file and updates
-  `goals/`
-- Same honest mirror as `rl-pi-review`, for actions done off the computer: you
-  report what got done and achieved, the AI holds it against your plan and
-  philosophy.
+  when the evidence calls for it — an honest mirror, not a cheerleader.
 
 ## The loop, in skills
 
@@ -207,9 +195,9 @@ Observes what you did **in the physical world** — the steps pi0 can't see.
 3. `/rl-goal spend two focused hours a day building my side project` — set a goal with clear criteria.
 4. `/rl-plan the side-project goal` — agree on concrete, doable, timed steps.
 5. _Act — on the computer or in the physical world_ — or `/rl-work the side-project
-   landing page` to delegate a computer-side task to the AI, done in `work/`.
-6. `/rl-pi-review the side-project goal, this past week` — observe your computer
-   activity via pi0; or `/rl-human-review` — report real-world outcomes. Either way,
-   get honest feedback and refine the goal and plan.
+landing page` to delegate a computer-side task to the AI, done in `work/`.
+6. `/rl-review the side-project goal, this past week` — show the AI what you did
+   (tell it, or point it at an export, a screenshot, or a log), get honest feedback,
+   and refine the goal and plan.
 7. Return to step 5 and keep acting — refining the goal, plan, and philosophy
    whenever the evidence calls for it — until the goal is reached.

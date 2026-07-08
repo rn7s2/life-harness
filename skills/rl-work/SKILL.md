@@ -22,9 +22,9 @@ every artifact **inside the workspace** under `work/` so this and future agents
 have comprehensive context, and links the work back to the goal it serves so a
 later review can judge whether it actually moved the criteria.
 
-Where `rl-plan` **plans** the steps and `rl-pi-review` / `rl-human-review`
-**observe** them, `rl-work` is where the AI **does** the computer-side steps on
-the user's behalf — and leaves a record honest enough to review.
+Where `rl-plan` **plans** the steps and `rl-review` **observes** them, `rl-work`
+is where the AI **does** the computer-side steps on the user's behalf — and leaves
+a record honest enough to review.
 
 ## Input
 
@@ -89,11 +89,12 @@ start.
 
 7. **Hand back and link to the loop.** Tell the user what's done, what needs their
    input, and what remains. If the task served a goal, make sure this record's
-   `goal:` (and `action:`) field names it, so `/rl-pi-review` and `/rl-human-review`
-   pick this folder up as evidence when they review that goal — the AI's own actions
-   don't show up in pi0, so this record *is* the evidence. Surface the outcome in the
-   goal's action-file `## Log` too if it's worth a line. When the task is finished or
-   dropped, set its `status` and **move** the whole folder to `work/closed/<slug>/`.
+   `goal:` (and `action:`) field names it, so `/rl-review` picks this folder up as
+   evidence when it reviews that goal — the AI's own work isn't part of the activity
+   the user reports on, so this record *is* the evidence for the steps they
+   delegated. Surface the outcome in the goal's action-file `## Log` too if it's
+   worth a line. When the task is finished or dropped, set its `status` and **move**
+   the whole folder to `work/closed/<slug>/`.
 
    `task.md` shape:
 

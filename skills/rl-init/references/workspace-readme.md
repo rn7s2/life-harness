@@ -50,11 +50,14 @@ zone name — like `2026-07-06 14:30 +08:00 (Asia/Shanghai)`.
 
 **Context economy.** These files reload into context on every loop, so keep them
 lean. Live sections state only the *current* truth (on refine, rewrite them clean
-— don't accrete "(re-baselined X→Y)" asides). Budget: `target`/each step = 1 line,
-each criterion = 1–2, each history/log entry = a heading + ≤5 one-sentence
-bullets. Cite philosophy only where load-bearing. `## Notes / history` and `## Log`
-keep the **last ~3 entries**; move older ones verbatim to `goals/history/<slug>.md`
-/ `actions/history/<slug>.md` (append-only, not auto-loaded) with a one-line pointer.
+— don't accrete "(re-baselined X→Y)" asides; collapse a finished slice to a
+one-line pointer). Budget: `target`/each step = 1 line, each criterion = 1–2, each
+artifact = 1, each history/log entry = a heading + ≤5 one-sentence bullets
+(delta-only). Cite philosophy only where load-bearing. `## Notes / history`
+(goals), `## Log` (actions), and `## Log` (work `task.md`) keep the **last ~3
+entries**; move older ones verbatim to `goals/history/<slug>.md`,
+`actions/history/<slug>.md`, or the task's `task.log.md` (beside `task.md`,
+append-only, not auto-loaded) with a one-line pointer.
 
 ### philosophy/
 One file per principle/theme, kebab-case (`mornings.md`, `deep-work.md`) — the
@@ -122,12 +125,14 @@ the artifacts the AI produced**. Shape:
 - action: actions/open/<slug>.md  # the step it advances, if any
 
 ## Task
-What was delegated, and the concrete deliverable / definition of done.
+What was delegated, and the concrete deliverable / definition of done —
+current-truth only (collapse a finished slice to a one-line pointer; deep detail → notes/).
 
 ## Artifacts
 Files produced here (and any real-project paths touched), one line each.
 
 ## Log
+Last ~3 entries; older → task.log.md (beside this file). Each = heading + ≤5 one-sentence bullets, delta-only.
 YYYY-MM-DD HH:MM ±HH:MM (Zone/Name) — what got done, done/partial/blocked, decisions.
 ```
 

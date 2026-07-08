@@ -60,9 +60,19 @@ take on. Pin down what "done" means before starting.
    the deliverable must land elsewhere in a real project, still record in the brief
    what you changed and where, and link it. Keep decisions and dead-ends in the log.
 
-6. **Log honestly.** Append to `## Log`: what you did, what's **done / partial /
-   blocked / deferred**, decisions and why, and anything the user must decide or
-   verify. Don't overstate. Keep `## Artifacts` current and bump `updated`.
+6. **Log honestly — and keep the record lean (enforce this every write).**
+   Append **one delta-only, budgeted entry** to `## Log` — a heading line + ≤5
+   one-sentence bullets, no paragraphs or numbered sub-lists (the same discipline
+   `/rl-review` uses): what you did, what's **done / partial / blocked /
+   deferred**, decisions and why, and anything the user must decide or verify.
+   Don't overstate. **Then roll the log before you finish:** `task.md`'s `## Log`
+   keeps only the **last ~3 entries** — cut older ones and append them verbatim to
+   `task.log.md` beside it (create it if absent; append-only, never auto-loaded),
+   leaving a one-line pointer. Nothing trims this automatically, so it is *your*
+   step, not the harness's — a `task.md` that only grows is the bug this prevents.
+   Keep the brief itself current-truth-only: when a slice finishes, collapse it to
+   a one-line pointer rather than leaving its full narrative (deep detail lives in
+   `notes/`). Keep `## Artifacts` to **one line each**, and bump `updated`.
 
 7. **Hand back and link to the loop.** Tell the user what's done, what needs their
    input, what remains. If the task served a goal, make sure this record's `goal:`
@@ -85,7 +95,8 @@ take on. Pin down what "done" means before starting.
    - action: actions/open/<slug>.md  # the step it advances, if any
 
    ## Task
-   What the user delegated (their words) + your restatement of the deliverable and definition of done.
+   What the user delegated (their words) + your restatement of the deliverable and
+   definition of done. Current-truth only — collapse a finished slice to a one-line pointer.
 
    ## Plan
    Brief steps you'll take (for anything non-trivial).
@@ -94,5 +105,6 @@ take on. Pin down what "done" means before starting.
    Files produced here (and any real-project paths touched), one line each.
 
    ## Log
+   Last ~3 entries; older → task.log.md (beside this file). Each = heading + ≤5 one-sentence bullets, delta-only.
    YYYY-MM-DD HH:MM ±HH:MM (Zone/Name) — what you did, done/partial/blocked, decisions, what's next.
    ```

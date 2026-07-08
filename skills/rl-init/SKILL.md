@@ -78,15 +78,19 @@ Establish these here so the other skills can assume them:
   Moves to `closed/` alongside its goal.
 - **work/** — one folder per delegated task, `work/open/<slug>/` then
   `work/closed/<slug>/`, holding a `task.md` brief **and its artifacts**. Written
-  by `rl-work`.
+  by `rl-work`; the `task.md` `## Log` rolls overflow to `task.log.md` beside it
+  (append-only, not auto-loaded).
 - **Context economy — these files reload into context every loop, so keep them
-  lean.** Live sections (`target`, criteria, plan steps) state only the *current*
-  truth: on refine, rewrite them clean rather than accreting "(re-baselined X→Y)"
-  asides. Budget: `target`/each step = 1 line, each criterion = 1–2, each
-  history/log entry = a heading + ≤5 one-sentence bullets. Cite philosophy only
-  where load-bearing. `## Notes / history` (goals) and `## Log` (actions) keep
-  only the last ~3 entries; move older ones verbatim to `goals/history/<slug>.md`
-  / `actions/history/<slug>.md` (append-only, never auto-loaded) and leave a
+  lean.** Live sections (`target`, criteria, plan steps, the work brief) state
+  only the *current* truth: on refine, rewrite them clean rather than accreting
+  "(re-baselined X→Y)" asides, and collapse a finished slice to a one-line pointer
+  rather than leaving its full narrative. Budget: `target`/each step = 1 line,
+  each criterion = 1–2, each artifact = 1, each history/log entry = a heading +
+  ≤5 one-sentence bullets (delta-only). Cite philosophy only where load-bearing.
+  `## Notes / history` (goals), `## Log` (actions), and `## Log` (work `task.md`)
+  keep only the last ~3 entries; move older ones verbatim to
+  `goals/history/<slug>.md`, `actions/history/<slug>.md`, or the task's own
+  `task.log.md` (beside `task.md`, append-only, never auto-loaded) and leave a
   one-line pointer.
 
 Keep the workspace human-browsable: clear filenames, plain Markdown, no hidden
